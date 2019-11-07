@@ -74,12 +74,69 @@ public class MyTask {
                 //获取锁
                 //执行同步代码块
                 {
-                    log.info("执行定时任务" + new Date() + Thread.currentThread());
+                    log.info("执行定时任务1" + new Date() + Thread.currentThread());
                     Thread.sleep(500);//不释放锁，模拟任务耗时
                 }
             } else {
                 //获取锁失败，当前已有线程正在执行定时任务
-                log.info(Thread.currentThread().getName() + "放弃执行");
+                log.info(Thread.currentThread().getName() + "定时任务1放弃执行");
+                //TODO 此处获取锁失败，必须return，否则会释放锁
+                return;
+            }
+        } catch (InterruptedException e) {
+            log.info("任务执行异常" + e);
+        } finally {
+            //释放锁(包括手动释放和自动释放)
+            redisTemplate.delete("key");
+        }
+
+    }
+
+    @Scheduled(cron = "*/3 * * * * ?")
+    public void execute2() throws InterruptedException {
+        //TODO 为定时任务加分布式锁
+
+/*
+
+        //创建锁对象
+        SimpleRedisLock lock = new SimpleRedisLock(redisTemplate, "lock");
+        //获取锁，设置锁的自动失效时间为50s
+        boolean isLock = lock.lock(50);
+        //判断是否获取锁
+        if (!isLock) {
+            //获取失败
+            log.info("获取锁失败，停止定时任务");
+            return;
+        }
+        try {
+            //执行业务
+            log.info("获取锁成功，执行定时任务");
+            //模拟任务耗时
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            log.info("任务执行异常" + e);
+        } finally {
+            lock.unlock();
+        }
+
+*/
+
+
+        try {
+            //该方法等效于setNX 键 值 NX EX 超时时间
+            //如果该key不存在则设置并返回true，如果该key已存在则不进行任何操作并返回false
+            Boolean isLock = redisTemplate.opsForValue().setIfAbsent("key", new Date().toString(), 3600L, TimeUnit.SECONDS);
+            if (isLock != null && isLock) {
+                //获取锁
+                //执行同步代码块
+                {
+                    log.info("执行定时任务2" + new Date() + Thread.currentThread());
+                    Thread.sleep(500);//不释放锁，模拟任务耗时
+                }
+            } else {
+                //获取锁失败，当前已有线程正在执行定时任务
+                log.info(Thread.currentThread().getName() + "定时任务2放弃执行");
+                return;
             }
         } catch (InterruptedException e) {
             log.info("任务执行异常" + e);
