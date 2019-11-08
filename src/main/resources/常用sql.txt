@@ -1,0 +1,8 @@
+#查询今日
+select * from 表名 where TO_DAYS(NOW()) - TO_DAYS(create_date) = 0
+#查询n天前的数据(超过n天)
+select * from 表名 where TO_DAYS(NOW()) - TO_DAYS(create_date) > n
+#查询n天内的数据(不超过n天)
+select * from 表名 where TO_DAYS(NOW()) - TO_DAYS(create_date) < n
+#查询本月
+select * from 表名 where DATE_FORMAT(create_date,'%Y%m') - DATE_FORMAT(CURDATE(),'%Y%m') = 0
