@@ -17,7 +17,7 @@ public class DistributedLockService {
      * 本地线程锁测试
      * 测试说明：模拟卖票，本地创建两个线程共享100张票。如果不出现超卖或者多个线程卖同一张票的情况则表示锁有效。
      */
-    public void localLockTest(){
+    public void localLockTest() {
 
         //创建线程池
 
@@ -64,20 +64,16 @@ public class DistributedLockService {
     }
 
 
-
     /**
      * 分布式锁测试
      * 测试说明：本地执行两个完全相同的定时任务，模拟集群中的两个节点同时调用某一个接口。如果在总时间t内两个定时任务的执行次数总和= t/定时任务执行间隔 则表示锁有效
-     *           如：定时任务每隔5s执行一次，则在60s内，无论同时开启多少个完全相同的定时任务，最终执行的次数总和=12
-     *           TODO 注意：由于定时任务本地不会出现线程安全问题，所以忽略本地线程锁。
+     * 如：定时任务每隔5s执行一次，则在60s内，无论同时开启多少个完全相同的定时任务，最终执行的次数总和=12
+     * TODO 注意：由于定时任务本地不会出现线程安全问题，所以忽略本地线程锁。
      */
-    public void distributedLockTest() throws InterruptedException {
+    public void distributedLockTest() {
         //1. 判断锁是否被使用，如果被使用则当前线程等待，否则进入需要同步的代码块。
         //2. 锁住整个同步代码块：在redis中设置唯一key(锁)，以及失效时间(锁的最大持有时间，防止某个线程一直持有锁导致死锁)。
         //3. 当前线程执行完毕，删除redis中设置的唯一key(释放锁)，此时等待的线程可以进入同步代码块。
-
-
-
     }
 
 }
@@ -86,24 +82,9 @@ class Work implements Runnable {
 
     private int ticket = 100;
 
-    /*public synchronized void sell() {
-        if (this.ticket > 0) {
-            try {
-                Thread.sleep(1000);//sleep方法不释放锁
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println(Thread.currentThread().getName() + "卖了第" + ticket + "张票");
-            ticket--;
-        }
-    }*/
-
     @Override
     public void run() {
         while (true) {
-
-//            sell();
             synchronized (Lock.getLock()) {
                 if (this.ticket > 0) {
                     try {
@@ -123,8 +104,8 @@ class Work implements Runnable {
 }
 
 class Lock {
-    private Lock() {
 
+    private Lock() {
     }
 
     private static Lock lock = new Lock();
