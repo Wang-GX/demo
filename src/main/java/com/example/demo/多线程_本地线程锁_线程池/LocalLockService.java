@@ -1,17 +1,12 @@
-package com.example.demo.distributedlock;
+package com.example.demo.多线程_本地线程锁_线程池;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.*;
 
 @Service
-public class DistributedLockService {
-
-    @Autowired
-    private StringRedisTemplate redisTemplate;
+public class LocalLockService {
 
     /**
      * 本地线程锁测试
@@ -61,19 +56,6 @@ public class DistributedLockService {
         //关闭线程池
         singleThreadPool.shutdown();
 
-    }
-
-
-    /**
-     * 分布式锁测试
-     * 测试说明：本地执行两个完全相同的定时任务，模拟集群中的两个节点同时调用某一个接口。如果在总时间t内两个定时任务的执行次数总和= t/定时任务执行间隔 则表示锁有效
-     * 如：定时任务每隔5s执行一次，则在60s内，无论同时开启多少个完全相同的定时任务，最终执行的次数总和=12
-     * TODO 注意：由于定时任务本地不会出现线程安全问题，所以忽略本地线程锁。
-     */
-    public void distributedLockTest() {
-        //1. 判断锁是否被使用，如果被使用则当前线程等待，否则进入需要同步的代码块。
-        //2. 锁住整个同步代码块：在redis中设置唯一key(锁)，以及失效时间(锁的最大持有时间，防止某个线程一直持有锁导致死锁)。
-        //3. 当前线程执行完毕，删除redis中设置的唯一key(释放锁)，此时等待的线程可以进入同步代码块。
     }
 
 }

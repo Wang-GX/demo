@@ -1,11 +1,11 @@
-package com.example.demo.distributedlock;
+package com.example.demo.定时任务_分布式锁;
 
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.concurrent.TimeUnit;
 
 
-public class SimpleRedisLock implements RedisLock{
+public class RedisLockImpl implements RedisLock {
 
     private StringRedisTemplate redisTemplate;
     /**
@@ -17,7 +17,7 @@ public class SimpleRedisLock implements RedisLock{
      */
     private static final String VALUE = "1";
 
-    public SimpleRedisLock(StringRedisTemplate redisTemplate, String key) {
+    public RedisLockImpl(StringRedisTemplate redisTemplate, String key) {
         this.redisTemplate = redisTemplate;
         this.key = key;
     }

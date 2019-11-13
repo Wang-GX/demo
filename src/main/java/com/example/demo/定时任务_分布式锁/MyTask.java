@@ -1,7 +1,5 @@
-package com.example.demo.task;
+package com.example.demo.定时任务_分布式锁;
 
-import com.example.demo.distributedlock.DistributedLockService;
-import com.example.demo.distributedlock.SimpleRedisLock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -35,28 +33,40 @@ public class MyTask {
      * 行锁：两个线程不能同时执行一条对同一行数据记录的update操作
      * 同步锁：两个线程不能同时执行一段被锁住的代码
      *
-     * (3) 实现思路：线程进入同步代码块时锁住这段代码(自动)---------------->线程进入同步代码块时在Redis中设置一个标记(手动)，如：key：lock value：随意
-     * 线程尝试获取锁(自动)---------------->线程先到Redis中判断锁是否存在，如果存在则表示锁已被其他线程获取，则阻塞，如果不存在则表示当前锁已被释放，可以正常获取锁并执行同步代码块中的代码
-     * 线程出同步代码块时释放锁(自动)---------------->线程出同步代码块时删除这个标记，表示释放锁
+     * (3) 实现思路：
+     * 步骤：(左侧为本地线程锁，右侧为分布式锁)
+     * 1. 当前线程尝试获取锁(自动)---------------->当前线程先到Redis中判断锁是否存在，如果存在则表示其他线程正在执行同步代码块中的内容，则当前线程阻塞，如果不存在则表示没有其他线程正在执行同步代码块中的代码，当前线程可以执行同步代码块中的代码。
+     * 2. 当前线程进入同步代码块时锁住这段代码(自动)---------------->当前线程进入同步代码块时在Redis中设置一个锁标记(手动)，如：key：lock value：isLock，表示添加锁。
+     * 3. 当前线程出同步代码块时释放锁(自动)---------------->线程出同步代码块时删除Redis中的锁标记，表示释放锁。
+     * 关键点：
+     * 1. 锁唯一：在Redis中设置唯一key(锁)
+     * 2. 防止死锁：必须设置锁的自动失效时间，防止某个线程一直持有锁导致死锁(key设置后如果达到这个时间则自动删除，此时锁为非正常释放(某个线程执行完毕后手动删除该key为正常释放))。
      */
+
 
     /**
-     * 理解：锁就是(某个唯一对象上的)标记。在单机应用中，由于只有一个jvm进程，而堆是线程共享区，所以每个线程都可以看到堆中的这个唯一对象以及上面的标记值。所以可以通过操作这个唯一对象上的标记值，来保证多个线程之间的同步。
-     * 由jvm控制这个标记的值，每个对象的标记值默认为1。当有线程进入同步代码块时，将标记值置为0，此时其他线程不能进入同步代码块。当线程执行完毕出同步代码块时，将标记值置为1，此时其他线程可以进入同步代码块。
-     * 而在分布式环境下，jvm进程不是同一个，所以为了保证持有标记的对象唯一，需要借助第三方工具，如Redis。将唯一的key作为持有标记的对象，这个key是否存在就是这个标记的值。
+     * 个人理解：
+     * 锁就是一个标记，这个标记对于操作它的线程必须是可见并且唯一的。
+     * 在单机应用中，由于只有一个JVM进程，而堆是线程共享区，所以每个线程共享堆中的对象以及对象上的标记。因此可以通过操作任意一个唯一对象上的标记，来实现多个线程之间的同步。
+     * 可以这样认为，每个对象上的标记初始值为0。当有线程进入同步代码块时，JVM将这个标记的值置为1，此时其他线程都不能进入同步代码块。当这个线程执行完毕出同步代码块时，JVM将这个标记的值置为0，此时其他线程可以进入同步代码块。
+     * 而在分布式环境下，存在多个JVM进程，也就是多个堆内存。此时为了保证标记对所有线程可见且唯一，需要借助第三方工具，如Redis。将唯一的key是否存在作为这个标记的值。
      */
 
-    @Autowired
-    private DistributedLockService distributedLockService;
+
+    /**
+     * 分布式锁测试
+     * 测试说明：本地执行两个完全相同的定时任务，模拟集群中的两个节点同时调用某一个接口。如果在总时间t内两个定时任务的执行次数总和= t/定时任务执行间隔，则表示分布式锁有效
+     * 如：定时任务每隔5s执行一次，则在60s内，无论同时开启多少个完全相同的定时任务，最终执行的次数总和始终=12
+     */
 
     @Scheduled(cron = "*/3 * * * * ?")
-    public void execute() throws InterruptedException {
+    public void execute(){
         //TODO 为定时任务加分布式锁
 
 /*
 
         //创建锁对象
-        SimpleRedisLock lock = new SimpleRedisLock(redisTemplate, "lock");
+        RedisLock lock = new RedisLockImpl(redisTemplate, "lock");
         //获取锁，设置锁的自动失效时间为50s
         boolean isLock = lock.lock(50);
         //判断是否获取锁
@@ -109,13 +119,13 @@ public class MyTask {
     }
 
     @Scheduled(cron = "*/3 * * * * ?")
-    public void execute2() throws InterruptedException {
+    public void execute2(){
         //TODO 为定时任务加分布式锁
 
 /*
 
         //创建锁对象
-        SimpleRedisLock lock = new SimpleRedisLock(redisTemplate, "lock");
+        RedisLock lock = new RedisLockImpl(redisTemplate, "lock");
         //获取锁，设置锁的自动失效时间为50s
         boolean isLock = lock.lock(50);
         //判断是否获取锁
