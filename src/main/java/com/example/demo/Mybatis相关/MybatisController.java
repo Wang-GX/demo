@@ -1,7 +1,6 @@
 package com.example.demo.Mybatis相关;
 
 import com.example.demo.pojo.User;
-import com.example.demo.service.MybatisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,4 +37,5 @@ public class MybatisController {
     public User insertUser(@RequestBody User user){
         return this.mybatisService.insertUser(user);
     }
+
 }

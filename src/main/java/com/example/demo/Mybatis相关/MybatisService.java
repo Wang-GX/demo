@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.Mybatis相关;
 
 import com.example.demo.pojo.User;
 
