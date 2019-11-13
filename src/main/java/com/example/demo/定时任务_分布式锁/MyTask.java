@@ -59,7 +59,7 @@ public class MyTask {
      * 如：定时任务每隔5s执行一次，则在60s内，无论同时开启多少个完全相同的定时任务，最终执行的次数总和始终=12
      */
 
-    @Scheduled(cron = "*/3 * * * * ?")
+    //@Scheduled(cron = "*/3 * * * * ?")
     public void execute(){
         //TODO 为定时任务加分布式锁
 
@@ -118,7 +118,7 @@ public class MyTask {
 
     }
 
-    @Scheduled(cron = "*/3 * * * * ?")
+    //@Scheduled(cron = "*/3 * * * * ?")
     public void execute2(){
         //TODO 为定时任务加分布式锁
 

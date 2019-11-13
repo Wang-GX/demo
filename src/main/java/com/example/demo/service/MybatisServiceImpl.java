@@ -13,13 +13,19 @@ public class MybatisServiceImpl implements MybatisService{
 
     @Override
     public User getUser() {
-        return this.userMapper.getUser();
+//        userMapper.getUser();
+//        userMapper.getUser();
+//        userMapper.getUser();
+//        System.out.println(userMapper);
+        User user = this.userMapper.getUser();
+        System.out.println(user);
+        return user;
     }
 
     @Override
     public User insertUser(User user) {
         this.userMapper.insertUser(user);
-        System.out.println(user.getId());
+        System.out.println(user);
         return user;
     }
 }

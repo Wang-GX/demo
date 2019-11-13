@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo.mapper.UserMapper">
 
-    <cache/>
+    <!--<cache/>-->
 
     <select id="getUser" resultType="User">
         select * from user where user.id = 1;
@@ -11,12 +11,10 @@
     <insert id="insertUser" useGeneratedKeys="true" keyColumn="id" keyProperty="user.id">
         <!--注意参数keyProperty，如果在Mapper接口中使用@Param(xx)标识对象，那么应该使用xx.属性名-->
         insert into user(
-        name,
-        age
+        user_name
         )
         values(
-        #{user.name},
-        #{user.age}
+        #{user.userName}
         )
     </insert>
 </mapper>

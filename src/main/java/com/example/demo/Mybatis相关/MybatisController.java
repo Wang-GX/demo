@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.Mybatis相关;
 
 import com.example.demo.pojo.User;
 import com.example.demo.service.MybatisService;
@@ -20,11 +20,20 @@ public class MybatisController {
     //使用@Component及其衍生注解标识的Spring的Bean，默认的名字为类名(首字母小写)
     private MybatisService mybatisService;
 
+    /**
+     * 测试类型别名
+     * @return
+     */
     @PostMapping("getUser")
     public User getUser(){
         return this.mybatisService.getUser();
     }
 
+    /**
+     * 测试自增主键回显以及@Param注解标识对象
+     * @param user
+     * @return
+     */
     @PostMapping("insertUser")
     public User insertUser(@RequestBody User user){
         return this.mybatisService.insertUser(user);

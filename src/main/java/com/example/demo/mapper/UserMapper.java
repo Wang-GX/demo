@@ -9,5 +9,5 @@ public interface UserMapper {
 
     User getUser();
 
-    void insertUser(@Param("user") User user);
+    void insertUser(@Param("user")User user);
 }
