@@ -7,4 +7,5 @@ public interface MybatisService {
     User getUser();
 
     User insertUser(User user);
+
 }
