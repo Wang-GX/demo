@@ -1,0 +1,58 @@
+package com.example.demo.SpringBoot自动配置;
+
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@EnableConfigurationProperties(MyProperties.class)
+public class MyConfiguration {
+
+    /*@Bean
+    public Person getPerson(){
+        return new Person();
+    }*/
+
+    //Person person = new Person();
+
+    @Bean
+    @ConditionalOnClass({WeaponMust1.class, WeaponMust2.class})//TODO 此处
+    public Weapon createWeapon(MyProperties properties) {
+        //测试@ConditionalOnClass注解
+        Weapon weapon = new Weapon();
+        weapon.setWeaponName(properties.getWeaponName());
+        weapon.setAttackPower(properties.getAttackPower());
+        return weapon;
+    }
+
+    @Bean
+    //@ConditionalOnProperty(prefix = "game.config", value = {"clothsName","defensivePower"},matchIfMissing = {"jjzj",""})
+    @ConditionalOnProperty(prefix = "game.config", name = {"sex"},matchIfMissing = false)
+    //matchIfMissing = true：选择的属性值无论是否为null都会执行这个方法
+    //matchIfMissing = false(默认)：选择的属性值如果为null(配置文件中没有配置并且属性类中没有给默认值)就不执行这个方法，TODO 报错
+    public Cloths createCloths(MyProperties properties) {
+        //测试@ConditionalOnProperty注解
+        Cloths cloths = new Cloths();
+        cloths.setClothsName(properties.getClothsName());
+        cloths.setDefensivePower(properties.getDefensivePower());
+        return cloths;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(Person.class)
+    public Person createPerson(MyProperties properties,Weapon weapon,Cloths cloths){
+        //测试@ConditionalOnMissingBean注解，测试OK！
+        //如果【IOC容器中】不存在指定类型的bean对象，这个方法才会执行，否则不执行
+        Person person = new Person();
+        person.setName(properties.getPersonName());
+        person.setSex(properties.getSex());
+        person.setAge(properties.getAge());
+        person.setName(properties.getPersonName());
+        person.setWeapon(weapon);
+        person.setCloths(cloths);
+        return person;
+    }
+}
