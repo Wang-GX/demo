@@ -18,7 +18,7 @@ public class MyConfiguration {
 
     //Person person = new Person();
 
-    @Bean
+    @Bean(name = "weapon")
     @ConditionalOnClass({WeaponMust1.class, WeaponMust2.class})//TODO 此处
     public Weapon createWeapon(MyProperties properties) {
         //测试@ConditionalOnClass注解
@@ -28,7 +28,7 @@ public class MyConfiguration {
         return weapon;
     }
 
-    @Bean
+    @Bean(name = "clotths")
     //@ConditionalOnProperty(prefix = "game.config", value = {"clothsName","defensivePower"},matchIfMissing = {"jjzj",""})
     @ConditionalOnProperty(prefix = "game.config", name = {"sex"},matchIfMissing = true)
     //matchIfMissing = true：选择的属性值无论是否为null都会执行这个方法
@@ -41,7 +41,7 @@ public class MyConfiguration {
         return cloths;
     }
 
-    @Bean
+    @Bean(name = "person")
     @ConditionalOnMissingBean(Person.class)
     public Person createPerson(MyProperties properties,Weapon weapon,Cloths cloths){
         //测试@ConditionalOnMissingBean注解，测试OK！

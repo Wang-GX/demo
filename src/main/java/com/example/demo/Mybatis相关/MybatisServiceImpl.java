@@ -3,6 +3,7 @@ package com.example.demo.Mybatis相关;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,6 +11,10 @@ public class MybatisServiceImpl implements MybatisService{
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    @Qualifier("userByDefaultConfig")
+    private User xxx;
 
     @Override
     public User getUser() {

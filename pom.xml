@@ -4,6 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!--指定当前工程为SpringBoot的子工程-->
+    <!--这个依赖中包含了SpringBoot的自动配置依赖spring-boot-autoconfigure-->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -66,8 +67,8 @@
         </dependency>
         <!--日志：可以自定义日志配置文件-->
         <dependency>
-            <groupId> org.springframework.boot </groupId>
-            <artifactId> spring-boot-starter-logging </artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
         <!--单元测试：SpringBoot-->
         <dependency>
@@ -102,11 +103,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>-->
+        <!--Druid数据库连接池-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+
         <!--zipkin链路监控-->
 
     </dependencies>
 
     <!--SpringBoot工程可执行jar包打包插件-->
+    <!--为什么生成可执行jar而不是war包，参考：resources/整理内容/maven.txt-->
     <build>
         <plugins>
             <plugin>
