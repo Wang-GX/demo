@@ -1,5 +1,6 @@
 ES
-Quartz定时任务框架
-分布式锁
-分布式事务
+XXljob定时任务框架
+Redisson分布式锁
+Lcn分布式事务
+规则引擎easy-rules
 手动启动器，并完成SpringBoot自动配置的模拟效果
