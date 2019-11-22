@@ -23,7 +23,7 @@ public class TransactionService {
         user1.setUserAge("18");
         userMapper.insertUser(user1);
         try {
-            bTransactional();//TODO !!! 如果A和B位于同一个类，不要使用this(或直接)调用，而是应该通过注入德本类对象调用。否则会出现与预期结果不符的情况。
+            transactional.bTransactional();//TODO !!! 如果A和B位于同一个类，不要使用this(或直接)调用，而是应该通过注入德本类对象调用。否则会出现与预期结果不符的情况。
         } catch (Exception e) {
             System.out.println("B中出现异常，回滚B");
         }
