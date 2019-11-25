@@ -1,6 +1,7 @@
 package com.example.demo.MybatisPlusTest;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -66,16 +67,6 @@ public class MybatisPlusTest {
         System.out.println("查询到的数据：" + user);
     }
 
-    /**
-     * 根据条件查询数据的数量
-     */
-    @Test
-    void testSelectCount() {
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_name", "zhangsan");
-        Integer count = userMapper.selectCount(wrapper);
-        System.out.println("查询到的数据：" + count);
-    }
 
     /**
      * 根据条件查询多条数据
@@ -89,7 +80,18 @@ public class MybatisPlusTest {
     }
 
     /**
-     * 分页查询
+     * 根据条件查询数据的数量
+     */
+    @Test
+    void testSelectCount() {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_name", "zhangsan");
+        Integer count = userMapper.selectCount(wrapper);
+        System.out.println("查询到的数据：" + count);
+    }
+
+    /**
+     * 分页查询(必须配置分页插件，见MybatisPlusConfiguration类)
      */
     @Test
     void testSelectPage() {
@@ -141,7 +143,8 @@ public class MybatisPlusTest {
         user.setUserAge("100");
 
         //构建条件：某个字段的值
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
+//      QueryWrapper<User> wrapper = new QueryWrapper<>();
+        UpdateWrapper<User> wrapper = new UpdateWrapper<>();
         wrapper.eq("user_name", "mybatisPlus");//TODO 注意：参数都为字段名和字段值，而不是属性名
         int count = this.userMapper.update(user, wrapper);
         System.out.println("数据库受影响的行数为：" + count);
