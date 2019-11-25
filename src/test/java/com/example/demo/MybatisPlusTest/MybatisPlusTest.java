@@ -80,6 +80,50 @@ public class MybatisPlusTest {
     }
 
     /**
+     * 根据条件查询数据
+     * eq：等于
+     * ne：不等于
+     * gt：大于
+     * ge：大于等于
+     * lt：小于
+     * le：小于等于
+     * between：BETWEEN 值1 AND 值2
+     * notBetween：NOT BETWEEN 值1 AND 值2
+     * in：字段 IN (值1 , 值2...)
+     * notIn：字段 NOT IN (值1 , 值2...)
+     */
+    @Test
+    void testSelectRange() {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_name", "zhangsan").lt("user_age",18);
+        List<User> users = userMapper.selectList(wrapper);
+        System.out.println("查询到的数据：" + users);
+    }
+
+    /**
+     * 根据or条件查询数据
+     */
+    @Test
+    void testSelectOr() {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_name", "zhangsan").or().eq("user_sex",1);
+        List<User> users = userMapper.selectList(wrapper);
+        System.out.println("查询到的数据：" + users);
+    }
+
+    /**
+     * 指定查询字段(否则查询全部字段)
+     */
+    @Test
+    void testSelectField() {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_name", "zhangsan").select("user_name","user_age");
+        List<User> users = userMapper.selectList(wrapper);
+        System.out.println("查询到的数据：" + users);
+    }
+
+
+    /**
      * 根据条件查询数据的数量
      */
     @Test
@@ -89,6 +133,23 @@ public class MybatisPlusTest {
         Integer count = userMapper.selectCount(wrapper);
         System.out.println("查询到的数据：" + count);
     }
+
+
+    /**
+     * 模糊查询
+     * like：LIKE '%值%'
+     * notLike：NOT LIKE '%值%'
+     * likeLeft：LIKE '%值'
+     * likeRight：LIKE '值%'
+     */
+    @Test
+    void testSelectFuzzy() {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.like("user_name","王");
+        List<User> users = userMapper.selectList(wrapper);
+        System.out.println("查询到的数据：" + users);
+    }
+
 
     /**
      * 分页查询(必须配置分页插件，见MybatisPlusConfiguration类)
@@ -105,6 +166,23 @@ public class MybatisPlusTest {
         List<User> records = iPage.getRecords();
         System.out.println("查询到的数据：" + records);
     }
+
+
+    /**
+     * 对查询结果进行排序
+     * orderByAsc：升序排序：ORDER BY 字段, ... ASC
+     * 例: orderByAsc("id", "name") ---> order by id ASC,name ASC
+     * orderByDesc：降序排序：ORDER BY 字段, ... DESC
+     * 例: orderByDesc("id", "name") ---> order by id DESC,name DESC
+     */
+    @Test
+    void testSelectOrderBy() {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_name","zhangsan").orderByAsc("user_age");
+        List<User> users = userMapper.selectList(wrapper);
+        System.out.println("查询到的数据：" + users);
+    }
+
 
 
     /**
