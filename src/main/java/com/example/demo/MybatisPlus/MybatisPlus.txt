@@ -1,0 +1,36 @@
+Mybatis-Plus
+
+1. 执行流程：
+   扫描实体类，通过反射分析出表有哪些字段，生成相应的SQL语句。
+   将这些SQL语句注入到Mybatis的容器中，就可以通过Mybatis去执行了。
+
+2. SpringBoot+Mybatis-Plus的使用
+   依赖：引入Mybatis-Plus启动器
+   TODO 特别注意！！！：
+        在引入了Mybatis-Plus后要注释掉Mybatis的依赖。报错信息参考：java.lang.NoClassDefFoundError: org/mybatis/logging/LoggerFactory
+        并且配置文件中的内容都要替换为Mybatis-Plus的配置。报错信息参考：org.apache.ibatis.binding.BindingException: Invalid bound statement (not found)
+
+   (1)Mapper接口继承BaseMapper接口，指定泛型为要操作的实体类。
+      如：public interface UserMapper extends BaseMapper<User>
+   (2)在实体类上添加@TableName("表名")注解，指定实体类和数据表的映射关系。(如果不加该注解则默认映射的是类名首字母小写的这张表)
+      如：@TableName("user")
+          public class User{...}
+
+      注意：
+        ①Mybatis-Plus默认开启驼峰匹配
+        ②对于不满足自动映射和驼峰匹配的字段，需要使用注解@TableField("字段名")指定映射关系
+        ③对于主键，需要使用注解@TableId(value = "id", type = IdType.AUTO)指定映射关系以及主键策略为自增长。
+          TODO 注意：即使数据表已经使用了主键自增长策略，也需要在实体类中添加该注解，并且type = IdType.AUTO。也可以通过配置文件进行全局配置(见配置文件，此处略)。
+               IdType是一个枚举类，定义了生成ID的类型：
+                     AUTO 数据库ID自增
+                     INPUT 用户输入ID
+                     ID_WORKER 全局唯一ID，Long类型的主键
+                     ID_WORKER_STR 字符串全局唯一ID
+                     UUID 全局唯一ID，UUID类型的主键
+                     NONE 该类型为未设置主键类型
+               当IdType的类型为ID_WORKER、ID_WORKER_STR或者UUID时，主键由MyBatis Plus的IdWorker类生成，idWorker中调用了分布式唯一 ID 生成器 - Sequence
+
+        ④如果某个属性在数据表中不存在映射字段，则必须使用@TableField(exist = false)标识
+
+3. BaseMapper实现通用CRUD操作
+   (1) insert(T)：T为Mapper接口继承BaseMapper<T>中的泛型，即实体类对应的类型

@@ -60,10 +60,17 @@
             <version>${mysql.version}</version>
         </dependency>
         <!--mybatis-->
-        <dependency>
+        <!--TODO 注意：如果引入Mybatis-Plus的依赖那么就不要再引入Mybatis的依赖了，否则启动时会报错。报错信息参考：java.lang.NoClassDefFoundError: org/mybatis/logging/LoggerFactory-->
+        <!--<dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>${mybatis.version}</version>
+        </dependency>-->
+        <!--Mybatis-Plus-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.1.0</version>
         </dependency>
         <!--日志：可以自定义日志配置文件-->
         <dependency>
@@ -110,6 +117,7 @@
             <version>1.1.10</version>
         </dependency>
 
+
         <!--zipkin链路监控-->
 
     </dependencies>
@@ -130,6 +138,16 @@
                 <version>2.16</version>
                 <configuration>
                     <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
+            <!--JDK1.8编译插件-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>

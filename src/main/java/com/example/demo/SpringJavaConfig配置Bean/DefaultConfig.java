@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 public class DefaultConfig {
 
     @Value("${user.name}")//指定具体值单独注入
-    //TODO 为什么这个属性值一直都是User?
+    //TODO(**) 为什么这个属性值一直都是User?
     private String userName;
 
     @Value("${user.sex}")

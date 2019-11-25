@@ -1,21 +1,20 @@
 package com.example.demo;
 
 import com.example.demo.SpringBoot自动配置.*;
+import com.example.demo.mapper.UserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
+//TODO(*) 测试类运行失败
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = {"classpath:application.properties"})
-//TODO 测试类运行失败
+
+//TODO(**) 该测试类暂时启动失败，需要删除MyProperties类中的@Value("${game.config.sex2}")后才能顺利执行。虽然报错信息描述的是类型转换异常，但是直接启动项目并没有报错，而且通过@Value注解也可以将String类型的值注入到Integer类型的属性中。所以该类的报错先忽略，之后再处理。
 public class MyTest {
 
     private static ApplicationContext ctx = new AnnotationConfigApplicationContext(MyConfiguration.class);

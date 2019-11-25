@@ -19,7 +19,7 @@ public class MyConfiguration {
     //Person person = new Person();
 
     @Bean(name = "weapon")
-    @ConditionalOnClass({WeaponMust1.class, WeaponMust2.class})//TODO 此处
+    @ConditionalOnClass({WeaponMust1.class, WeaponMust2.class})//TODO(*)该注解暂未测试
     public Weapon createWeapon(MyProperties properties) {
         //测试@ConditionalOnClass注解
         Weapon weapon = new Weapon();
