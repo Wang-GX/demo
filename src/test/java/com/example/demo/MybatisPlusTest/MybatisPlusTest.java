@@ -26,6 +26,7 @@ public class MybatisPlusTest {
     @Test
     public void showSqlSessionFactory() {
 
+        //TODO(**)这里的注释待完善，并且要将MybatisPlus的SQL语句注入到Mybatis容器中的过程梳理清楚
         //定义的SQL语句，最终会被解析成statement对象注入到Mybatis容器中。
         //在下面这行代码处打断点，查看mappedStatements属性值。
         System.out.println(sqlSessionFactory);
