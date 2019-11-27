@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //@ContextConfiguration(locations = {"classpath:application.properties"})
 
 //TODO(**) 该测试类暂时启动失败，需要删除MyProperties类中的@Value("${game.config.sex2}")后才能顺利执行。虽然报错信息描述的是类型转换异常，但是直接启动项目并没有报错，而且通过@Value注解也可以将String类型的值注入到Integer类型的属性中。所以该类的报错先忽略，之后再处理。
-public class MyTest {
+public class LambdaTest {
 
     private static ApplicationContext ctx = new AnnotationConfigApplicationContext(MyConfiguration.class);
 
