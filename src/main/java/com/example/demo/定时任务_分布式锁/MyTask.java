@@ -110,7 +110,7 @@ public class MyTask {
             }
         } catch (InterruptedException e) {
             log.info("任务执行异常" + e);
-            redisTemplate.delete("key");
+            redisTemplate.delete("key");//TODO(!) 注意：这行代码逻辑是错误的，如果获取锁失败，并且抛出异常，那么会执行到这行代码释放锁。而获取锁失败的线程不应该释放锁。正确代码参考execute2方法。
         } finally {
             //释放锁(包括手动释放和自动释放)
             //redisTemplate.delete("key");
@@ -156,8 +156,9 @@ public class MyTask {
             log.info(Thread.currentThread().getName() + "定时任务2放弃执行");
             return;
         }
+
+        //获取锁成功
         try {
-            //获取锁成功
             //执行同步代码块
             {
                 log.info("执行定时任务2" + new Date() + Thread.currentThread());
