@@ -18,11 +18,22 @@ import org.junit.Test;
             蓝色箭头表示继承，绿色箭头表示实现，黄色虚线表示注解
     */
 
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+
+/**
+ * SpringBoot整合单元测试：
+ * (1) import org.junit.Test;
+ *     @RunWith(SpringRunner.class)+@SpringBootTest(引导类名.class);
+ * (2) import org.junit.jupiter.api.Test;
+ *     @SpringBootTest(引导类名.class);
+ */
 @Slf4j
+@RunWith(SpringRunner.class)
 @SpringBootTest(classes = DemoApplication.class)//SpringBoot项目，通过引导类启动时加载Spring的IOC容器
 public class SpringBootDemoTest {
 
