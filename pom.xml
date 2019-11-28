@@ -83,12 +83,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--单元测试：Spring-->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
         <!--Redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

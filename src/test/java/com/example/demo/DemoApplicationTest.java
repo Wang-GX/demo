@@ -2,17 +2,20 @@ package com.example.demo;
 
 import com.example.demo.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-@SpringBootTest
 @Slf4j
-class DemoApplicationTests {
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = DemoApplication.class)
+public class DemoApplicationTest {
 
     @Autowired
     private UserMapper userMapper;
@@ -22,12 +25,12 @@ class DemoApplicationTests {
 
 
     @Test
-    void contextLoads() {
+    public void contextLoads() {
         System.out.println(userMapper.getUser());
     }
 
     @Test
-    void testRedisCommand(){
+    public void testRedisCommand(){
         System.out.println(redisTemplate.opsForValue().setIfAbsent("key", new Date().toString(), 3600L, TimeUnit.SECONDS));
     }
 

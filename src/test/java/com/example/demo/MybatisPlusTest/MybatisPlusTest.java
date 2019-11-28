@@ -3,8 +3,8 @@ package com.example.demo.MybatisPlusTest;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.demo.DemoApplication;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.pojo.User;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -17,14 +17,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@SpringBootTest
-public class MybatisPlusTest {
+/**
+ * SpringBoot整合单元测试：
+ * (1) import org.junit.Test;
+ *     @RunWith(SpringRunner.class)+@SpringBootTest(引导类名.class);
+ * (2) import org.junit.jupiter.api.Test;
+ *     @SpringBootTest(引导类名.class);
+ */
+
+
+@SpringBootTest(classes = DemoApplication.class)
+class MybatisPlusTest {
 
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
 
     @Test
-    public void showSqlSessionFactory() {
+    void showSqlSessionFactory() {
 
         //TODO(**)这里的注释待完善，并且要将MybatisPlus的SQL语句注入到Mybatis容器中的过程梳理清楚
         //定义的SQL语句，最终会被解析成statement对象注入到Mybatis容器中。

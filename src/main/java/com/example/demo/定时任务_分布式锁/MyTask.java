@@ -63,58 +63,31 @@ public class MyTask {
     public void execute(){
         //TODO 为定时任务加分布式锁
 
-/*
-
-        //创建锁对象
-        RedisLock lock = new RedisLockImpl(redisTemplate, "lock");
-        //获取锁，设置锁的自动失效时间为50s
-        boolean isLock = lock.lock(50);
-        //判断是否获取锁
-        if (!isLock) {
-            //获取失败
-            log.info("获取锁失败，停止定时任务");
+        Boolean isLock = redisTemplate.opsForValue().setIfAbsent("key", new Date().toString(), 3600L, TimeUnit.SECONDS);
+        //该api方法等效于setNX 键 值 NX EX 超时时间
+        //如果该key不存在则设置并返回true，如果该key已存在则不进行任何操作并返回false
+        if (isLock == null || !isLock) {
+            //获取锁失败，当前已有线程正在执行同步代码块中的内容
+            log.info(Thread.currentThread().getName() + "定时任务1放弃执行");
             return;
         }
+
+        //获取锁成功
         try {
-            //获取成功，执行业务
-            log.info("获取锁成功，执行定时任务");
-            //模拟任务耗时
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            log.info("任务执行异常" + e);
-        } finally {
-            lock.unlock();
-        }
-
-
-*/
-
-        try {
-            //该api方法等效于setNX 键 值 NX EX 超时时间
-            //如果该key不存在则设置并返回true，如果该key已存在则不进行任何操作并返回false
-            Boolean isLock = redisTemplate.opsForValue().setIfAbsent("key", new Date().toString(), 3600L, TimeUnit.SECONDS);
-            if (isLock != null && isLock) {
-                //获取锁
-                //执行同步代码块
-                {
-                    log.info("执行定时任务1" + new Date() + Thread.currentThread());
-                    Thread.sleep(500);//模拟任务耗时(锁是redis中的key，所以不会释放锁)
-                    redisTemplate.delete("key");
-                }
-            } else {
-                //获取锁失败，当前已有线程正在执行定时任务
-                log.info(Thread.currentThread().getName() + "定时任务1放弃执行");
-                //TODO 此处获取锁失败，必须return，否则会释放锁【理解错误：即使return，finally代码块也会执行，即无论是否成功获取到锁最终都会释放锁。而应该只有获取锁成功的线程才有资格释放锁。】
-                //TODO 更合理的代码见execute2，这里只是为了说明一种可能发生的错误情况才写的如此繁琐。
-                return;
+            //执行同步代码块
+            {
+                log.info("执行定时任务1" + new Date() + Thread.currentThread());
+                Thread.sleep(500);//模拟任务耗时(锁是redis中的key，所以不会释放锁)
+                redisTemplate.delete("key");
             }
         } catch (InterruptedException e) {
             log.info("任务执行异常" + e);
-            redisTemplate.delete("key");//TODO(!) 注意：这行代码逻辑是错误的，如果获取锁失败，并且抛出异常，那么会执行到这行代码释放锁。而获取锁失败的线程不应该释放锁。正确代码参考execute2方法。
         } finally {
             //释放锁(包括手动释放和自动释放)
-            //redisTemplate.delete("key");
+            //TODO 注意：只有进入try以后finally代码块才一定会执行，如果没有进入try则finally代码块不会执行
+            redisTemplate.delete("key");
         }
+
 
     }
 
