@@ -51,3 +51,5 @@ Mybatis-Plus
 4. ActiveRecord(简化CRUD)
    对比使用BaseMapper，屏蔽了Mapper接口，直接将对数据库的操作封装在了实体类中。
    使用方式：Mapper接口继承BaseMapper<T>，实体类对象继承Model<T>
+
+5.插件

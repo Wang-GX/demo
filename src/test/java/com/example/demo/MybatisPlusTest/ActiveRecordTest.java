@@ -33,7 +33,7 @@ class ActiveRecordTest {
 
         //构建查询条件
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_name","zhangsan");
+        wrapper.eq("user_name", "zhangsan");
         List<User> users = user.selectList(wrapper);
         System.out.println("查询结果为：" + users);
     }
@@ -74,28 +74,6 @@ class ActiveRecordTest {
         user.setId(1);
         boolean deleteById = user.deleteById();
         System.out.println(deleteById);
-    }
-
-    /**
-     * 测试全表更新时阻断插件的效果
-     */
-    @Test
-    void testAllTableUpdate(){
-        User user = new User();
-        user.setUserAge("20");
-        //条件为null时，表示对全表进行更新
-        user.update(null);
-    }
-
-    /**
-     * 测试全表删除时阻断插件的效果
-     */
-    @Test
-    void testAllTableDelete(){
-        User user = new User();
-        user.setUserAge("20");
-        //条件为null时，表示对全表进行更新
-        user.delete(null);
     }
 
 }
