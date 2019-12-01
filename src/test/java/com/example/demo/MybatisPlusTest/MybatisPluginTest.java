@@ -1,8 +1,12 @@
 package com.example.demo.MybatisPlusTest;
 
+import com.example.demo.mapper.UserMapper;
 import com.example.demo.pojo.User;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest
 class MybatisPluginTest {
@@ -50,6 +54,19 @@ class MybatisPluginTest {
 
         System.out.println("newVersion = " + user.getVersion());//最新的版本号会回显到实体类对象中
 
+    }
+
+
+    @Autowired
+    private UserMapper userMapper;
+
+    /**
+     * 测试SQL注入器
+     */
+    @Test
+    void testSqlInjector(){
+        List<User> users = userMapper.findAll();
+        System.out.println(users);
     }
 
 }

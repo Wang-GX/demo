@@ -53,3 +53,18 @@ Mybatis-Plus
    使用方式：Mapper接口继承BaseMapper<T>，实体类对象继承Model<T>
 
 5.插件
+
+6. SQL注入器：就像MybatisPlus在BaseMapper中为我们定义好的那些通用方法一样，我们也可以继续扩展属于自己的通用方法。
+    BaseMapper
+        ↑
+        自定义BaseMapper
+            ↑
+            Mapper
+
+    使用方式：
+        (1)编写自定义BaseMapper<T> 继承 BaseMapper<T>
+        (2)在自定义BaseMapper中自定义方法
+        (3)编写SQL注入器，继承DefaultSqlInjector，实现getMethodList方法
+        (4)编写自定义方法类，继承AbstractMethod，实现injectMappedStatement方法
+        (5)将SQL注入器注入Spring的IOC容器
+        (6)Mapper接口调用方法
