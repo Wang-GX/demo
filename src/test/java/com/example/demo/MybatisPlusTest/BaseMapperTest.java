@@ -27,7 +27,7 @@ import java.util.Map;
 
 
 @SpringBootTest(classes = DemoApplication.class)
-class MybatisPlusTest {
+class BaseMapperTest {
 
     @Autowired
     private SqlSessionFactory sqlSessionFactory;

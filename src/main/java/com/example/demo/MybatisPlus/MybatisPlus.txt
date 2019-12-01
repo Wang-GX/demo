@@ -47,3 +47,7 @@ Mybatis-Plus
    (11) deleteBatchIds(Collection ids)；根据Ids批量删除
    (12) deleteByMap(Map<String, Object> columnMap)：根据条件删除
    (13) delete(Wrapper<T> wrapper)；根据条件删除(面向对象)
+
+4. ActiveRecord(简化CRUD)
+   对比使用BaseMapper，屏蔽了Mapper接口，直接将对数据库的操作封装在了实体类中。
+   使用方式：Mapper接口继承BaseMapper<T>，实体类对象继承Model<T>
