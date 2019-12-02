@@ -93,7 +93,7 @@ public class MybatisPlusConfiguration {
 
 
     //配置SQL注入器
-    @Bean
+    //@Bean
     public MySqlInjector mySqlInjector() {
         return new MySqlInjector();
     }

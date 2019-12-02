@@ -66,10 +66,11 @@ Mybatis-Plus
                       ↑
                       Mapper
 
-    使用方式：
-        (1)编写自定义BaseMapper<T> 继承 BaseMapper<T>
-        (2)在自定义BaseMapper中自定义方法
-        (3)编写SQL注入器，继承DefaultSqlInjector，实现getMethodList方法
-        (4)编写自定义方法类，继承AbstractMethod，实现injectMappedStatement方法
-        (5)将SQL注入器注入Spring的IOC容器
-        (6)Mapper接口调用方法
+    使用方式(BaseMapper中定义好的方法也都是通过这种方式添加到Mybatis容器中供我们使用的)：
+        (1)编写自定义BaseMapper<T> 继承BaseMapper<T>。
+        (2)在自定义BaseMapper中自定义方法。
+        (4)编写自定义方法类，继承AbstractMethod，重写injectMappedStatement方法。用来将自定义的SQL语句转换为对应的Java中的mappedStatement对象。
+        (3)编写自定义SQL注入器，继承DefaultSqlInjector，重写getMethodList方法。用来将自定义方法添加入到Mybatis容器中。
+           TODO!!! 特别注意：重写getMethodList方法时，必须先调用父类同名方法获取到methodList，然后将自定义的方法类对象添加到该集合中并返回。否则在调用BaseMapper原有定义方法(如selectById())时，会抛出Invalid bound statement (not found)异常。
+        (5)将自定义SQL注入器注入到Spring的IOC容器中。
+        (5)Mapper接口调用Mybatis容器中的方法。
