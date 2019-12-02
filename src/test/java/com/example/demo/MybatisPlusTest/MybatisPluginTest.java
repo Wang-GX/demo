@@ -51,7 +51,11 @@ class MybatisPluginTest {
         user.setVersion(oldVersion);//设置查询条件
         user.setUserSex("2");//设置修改内容
         user.updateById();//执行的SQL语句会将oldVersion作为更新条件，(oldVersion + 1)作为更新的值。如果其他线程更新过数据，版本号的值也会被修改(严格递增)，那么更新条件不满足，更新失败。
-
+        /**
+         * 执行的SQL语句为：
+         *  UPDATE user SET user_sex = '2', version= (oldVersion + 1）
+         *  WHERE id = 1 AND version = oldVersion;
+         */
         System.out.println("newVersion = " + user.getVersion());//最新的版本号会回显到实体类对象中
 
     }
