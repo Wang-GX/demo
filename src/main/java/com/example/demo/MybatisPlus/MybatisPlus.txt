@@ -53,13 +53,18 @@ Mybatis-Plus
    使用方式：Mapper接口继承BaseMapper<T>，实体类对象继承Model<T>
 
 5.插件
+   (1)分页插件
+   (2)拦截器插件
+   (3)阻断插件(开发)
+   (4)性能分析插件(开发)
+   (5)乐观锁插件
 
 6. SQL注入器：就像MybatisPlus在BaseMapper中为我们定义好的那些通用方法一样，我们也可以继续扩展属于自己的通用方法。
-    BaseMapper
-        ↑
-        自定义BaseMapper
-            ↑
-            Mapper
+              BaseMapper
+                  ↑
+                  自定义BaseMapper
+                      ↑
+                      Mapper
 
     使用方式：
         (1)编写自定义BaseMapper<T> 继承 BaseMapper<T>
