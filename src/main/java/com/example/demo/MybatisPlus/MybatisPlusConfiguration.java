@@ -27,7 +27,7 @@ public class MybatisPlusConfiguration {
     }
 
     //配置Mybatis自定义的拦截器插件
-    @Bean
+    //@Bean
     public MybatisInterceptor mybatisInterceptor() {
         return new MybatisInterceptor();
     }
@@ -35,7 +35,7 @@ public class MybatisPlusConfiguration {
     //配置Mybatis阻断插件(用来阻断全表更新、删除的操作)
     //当配置此插件后，如果执行了全表更新、删除的操作，则会抛出异常。异常信息分别为：Prohibition of table update operation/Prohibition of full table deletion
     //TODO 注意：该插件仅适用于开发环境，防止误操作，不适用于生产环境。
-    @Bean
+    //@Bean
     public SqlExplainInterceptor sqlExplainInterceptor() {
         List<ISqlParser> sqlParserList = new ArrayList<>();
         SqlExplainInterceptor sqlExplainInterceptor = new SqlExplainInterceptor();
@@ -47,7 +47,7 @@ public class MybatisPlusConfiguration {
     //配置Mybatis性能分析插件
     //当配置此插件后，会输出每条SQL语句的执行时间。可以设置SQL语句允许的最大执行时长，如果超过此时长则会抛出异常。异常信息为：The SQL execution time is too large, please optimize ！
     //TODO 注意：该插件仅适用于开发环境，进行SQL语句的性能优化，不适用于生产环境。
-    @Bean
+    //@Bean
     public PerformanceInterceptor performanceInterceptor() {
         PerformanceInterceptor performanceInterceptor = new PerformanceInterceptor();
         //设置SQL允许的最大执行时长
@@ -95,7 +95,7 @@ public class MybatisPlusConfiguration {
      *
      *
      */
-    @Bean
+    //@Bean
     public OptimisticLockerInterceptor optimisticLockerInterceptor() {
         return new OptimisticLockerInterceptor();
     }

@@ -1,4 +1,4 @@
-package com.example.demo.定时任务_分布式锁;
+package com.example.demo.定时任务_分布式锁.Redis实现;
 
 import org.springframework.data.redis.core.StringRedisTemplate;
 
