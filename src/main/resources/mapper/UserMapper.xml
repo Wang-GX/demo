@@ -9,8 +9,7 @@
     </select>
 
 
-    <insert id="insertUser" useGeneratedKeys="true" keyColumn="id" keyProperty="user.id">
-        <!--注意参数keyProperty，如果在Mapper接口中使用@Param(xx)标识对象，那么应该使用xx.属性名-->
+    <insert id="insertUser" useGeneratedKeys="true">
         insert into user(
         user_name
         )
