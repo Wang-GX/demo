@@ -24,7 +24,7 @@ public class RedissonTest {
     private UserMapper userMapper;
 
 
-    @Scheduled(cron = "*/3 * * * * ?")
+    //@Scheduled(cron = "*/3 * * * * ?")
     public void execute1() {
         //获取锁，设置锁的自动失效时间为2分钟
         RLock mylock = redissonClient.getLock("mylock");
@@ -51,7 +51,7 @@ public class RedissonTest {
     }
 
 
-    @Scheduled(cron = "*/3 * * * * ?")
+    //@Scheduled(cron = "*/3 * * * * ?")
     public void execute2() {
         //获取锁，设置锁的自动失效时间为2分钟
         RLock mylock = redissonClient.getLock("mylock");
@@ -77,7 +77,7 @@ public class RedissonTest {
         }
     }
 
-    @Scheduled(cron = "*/3 * * * * ?")
+    //@Scheduled(cron = "*/3 * * * * ?")
     public void execute4() {
         //获取锁，设置锁的自动失效时间为2分钟
         RLock mylock = redissonClient.getLock("mylock");
@@ -103,7 +103,7 @@ public class RedissonTest {
         }
     }
 
-    @Scheduled(cron = "*/3 * * * * ?")
+    //@Scheduled(cron = "*/3 * * * * ?")
     public void execute5() {
         //获取锁，设置锁的自动失效时间为2分钟
         RLock mylock = redissonClient.getLock("mylock");
@@ -129,7 +129,7 @@ public class RedissonTest {
         }
     }
 
-    @Scheduled(cron = "*/3 * * * * ?")
+    //@Scheduled(cron = "*/3 * * * * ?")
     public void execute6() {
         //获取锁，设置锁的自动失效时间为2分钟
         RLock mylock = redissonClient.getLock("mylock");
@@ -155,7 +155,7 @@ public class RedissonTest {
         }
     }
 
-    @Scheduled(cron = "*/3 * * * * ?")
+    //@Scheduled(cron = "*/3 * * * * ?")
     public void execute7() {
         //获取锁，设置锁的自动失效时间为2分钟
         RLock mylock = redissonClient.getLock("mylock");
@@ -181,7 +181,7 @@ public class RedissonTest {
         }
     }
 
-    @Scheduled(cron = "*/3 * * * * ?")
+    //@Scheduled(cron = "*/3 * * * * ?")
     public void execute8() {
         //获取锁，设置锁的自动失效时间为2分钟
         RLock mylock = redissonClient.getLock("mylock");
@@ -207,7 +207,7 @@ public class RedissonTest {
         }
     }
 
-    @Scheduled(cron = "*/3 * * * * ?")
+    //@Scheduled(cron = "*/3 * * * * ?")
     public void execute9() {
         //获取锁，设置锁的自动失效时间为2分钟
         RLock mylock = redissonClient.getLock("mylock");
