@@ -4,9 +4,7 @@ package com.example.demo.动态代理AOP;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -30,7 +28,7 @@ public class LogAspect {
     /**
      * AOP执行顺序说明：
      * Around-->Before--> target 正常或捕获异常 -->Around-->After-->AfterReturning
-     * 异常      -->AfterThrowing
+     *                                异常      -->After-->AfterThrowing
      */
 
     //声明切点(以方法为颗粒度)
@@ -46,35 +44,36 @@ public class LogAspect {
         String methodName = joinPoint.getSignature().getName();
         logger.info(methodName + "方法开始执行，入参：" + JSONObject.toJSONString(joinPoint.getArgs(), SerializerFeature.WriteMapNullValue));
         Object proceed = null;
-        try {
+        proceed = joinPoint.proceed();
+        /*try {
             proceed = joinPoint.proceed();
         } catch (Throwable throwable) {
             logger.error("methodName" + "方法出现异常!");
             logger.error("异常信息为：" + throwable.getMessage());
-        }
+        }*/
         logger.info(methodName + "方法执行完毕，出参：：" + JSONObject.toJSONString(proceed, SerializerFeature.WriteMapNullValue));
         return proceed;
     }
 
-    //@Before("pointcut()")
+    @Before("pointcut()")
     //前置通知：在切点方法执行之前执行
     public void before() {
         System.out.println("before");
     }
 
-    //@After("pointcut()")
+    @After("pointcut()")
     //后置通知：切点方法执行之后执行
     public void after() {
         logger.info("after");
     }
 
-    //@AfterReturning("pointcut()")
+    @AfterReturning("pointcut()")
     //返回通知：切点方法返回之后执行(可以理解为是回调)
     public void afterReturning() {
         logger.info("afterReturning");
     }
 
-    //@AfterThrowing("pointcut()")
+    @AfterThrowing("pointcut()")
     //异常通知：切点方法抛出异常时执行
     public void afterThrowing() {
         logger.info("afterThrowing");

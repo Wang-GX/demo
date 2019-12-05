@@ -14,7 +14,7 @@ public class CommonController {
 
     @PostMapping("/test")
     public void springAopTest() {
-        //System.out.println(1 / 0);
+        System.out.println(1 / 0);
         System.out.println("测试Spring AOP");
     }
 }

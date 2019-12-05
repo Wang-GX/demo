@@ -18,7 +18,7 @@ public class RedisTest {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    @Scheduled(cron = "*/1 * * * * ?")
+    //@Scheduled(cron = "*/1 * * * * ?")
     public void execute() {
         //TODO 为定时任务加分布式锁
 
@@ -48,7 +48,7 @@ public class RedisTest {
 
     }
 
-    @Scheduled(cron = "*/1 * * * * ?")
+    //@Scheduled(cron = "*/1 * * * * ?")
     public void execute2() {
         //TODO 为定时任务加分布式锁
 
