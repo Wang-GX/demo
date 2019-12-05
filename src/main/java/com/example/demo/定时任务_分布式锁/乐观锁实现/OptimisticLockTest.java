@@ -16,7 +16,7 @@ public class OptimisticLockTest {
     @Autowired
     private UserMapper userMapper;
 
-    @Scheduled(cron = "*/1 * * * * ?")
+    //@Scheduled(cron = "*/1 * * * * ?")
     public void execute1() {
 
         //查询数据版本号并记录
@@ -41,7 +41,7 @@ public class OptimisticLockTest {
 
     }
 
-    @Scheduled(cron = "*/1 * * * * ?")
+    //@Scheduled(cron = "*/1 * * * * ?")
     public void execute2() {
 
         //查询数据版本号并记录

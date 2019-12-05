@@ -94,6 +94,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+        <!--commons-pool2是Apache下一个开源的公共资源池。我们可以根据它来快速的建立一个自己的对象池。-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
         <!--Redisson-->
         <dependency>
             <groupId>org.redisson</groupId>
@@ -123,11 +128,8 @@
             <version>23.6-jre</version>
         </dependency>
 
-        <!--commons-pool2是Apache下一个开源的公共资源池。我们可以根据它来快速的建立一个自己的对象池。-->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
-        </dependency>
+
+
 
         <!--easy-rules规则引擎-->
         <dependency>
