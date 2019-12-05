@@ -10,6 +10,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+/**
+ * 连接点(JoinPoint)：Spring允许你通知（Advice）的地方。
+ * 切入点(Pointcut)：筛选的连接点。
+ * 通知、增强处理(Advice)：就是你想要的功能。
+ * 切面(Aspect)：切面是通知和切入点的结合。
+ * 目标对象(targer)
+ * 代理对象(proxy)
+ * 织入(weaving)：将切面应用到目标对象来创建新的代理对象的过程。
+ */
+
 
 @Aspect
 /**
