@@ -1,16 +1,12 @@
 package com.example.demo;
 
-
-import com.codingapi.txlcn.tc.config.EnableDistributedTransaction;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @MapperScan(basePackages = "com.example.demo.mapper")
 //@EnableScheduling//开启@Scheduled注解标识的定时任务
-@EnableDistributedTransaction//开启tx-lcn分布式事务注解
 /**
  * 注意：这里有一个坑
  * 如果只使用@Repository注解标记Mapper接口，但是没有在引导类上添加@MapperScan注解扫描这个Mapper接口，启动时会报错。错误信息为找不到这个Mapper接口，注入失败。

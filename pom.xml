@@ -139,7 +139,7 @@
             <version>3.3.0</version>
         </dependency>
         <!--tx-lcn分布式事务-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.codingapi.txlcn</groupId>
             <artifactId>txlcn-tc</artifactId>
             <version>5.0.2.RELEASE</version>
@@ -148,7 +148,7 @@
             <groupId>com.codingapi.txlcn</groupId>
             <artifactId>txlcn-txmsg-netty</artifactId>
             <version>5.0.2.RELEASE</version>
-        </dependency>
+        </dependency>-->
 
         <!--日期时间工具类-->
         <dependency>
