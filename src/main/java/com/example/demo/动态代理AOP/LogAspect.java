@@ -57,21 +57,25 @@ public class LogAspect {
     }
 
     //@Before("pointcut()")
+    //前置通知：在切点方法执行之前执行
     public void before() {
         System.out.println("before");
     }
 
     //@After("pointcut()")
+    //后置通知：切点方法执行之后执行
     public void after() {
         logger.info("after");
     }
 
     //@AfterReturning("pointcut()")
+    //返回通知：切点方法返回之后执行(可以理解为是回调)
     public void afterReturning() {
         logger.info("afterReturning");
     }
 
     //@AfterThrowing("pointcut()")
+    //异常通知：切点方法抛出异常时执行
     public void afterThrowing() {
         logger.info("afterThrowing");
     }
