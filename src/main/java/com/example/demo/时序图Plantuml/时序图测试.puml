@@ -1,5 +1,9 @@
 @startuml
 
+/'
+    参考：http://plantuml.com/zh/sequence-diagram
+'/
+
 '声明用户:
 actor app用户
 
@@ -10,14 +14,21 @@ participant webManager order 50
 participant 订单系统 order 70
 
 '声明调用关系:
-app用户 -> APP客户端 : 用户申请下单
+'x代表错误
+'可以标识序号，默认从1开始
+autonumber
+app用户 ->x APP客户端 : 用户申请下单
+APP客户端 -->app用户 : 报错
 APP客户端 ->webManager : 对外下单接口
 '指向自己，代表调用自身
 webManager -> webManager : 递归
 webManager ->订单系统 : 下单接口
 '可以使用实线，也可以使用虚线
-订单系统 -->webManager : 返回订单信息交易单号
-webManager -->APP客户端 : 返回订单信息交易单号
+'\n进行换行
+'可以设置颜色
+autonumber 100
+订单系统 -[#blue]->webManager : 返回订单信息交易单号
+webManager -->APP客户端 : 返回订单信息\n交易单号
 APP客户端 -->app用户 : 展示订单信息
 
 @enduml
