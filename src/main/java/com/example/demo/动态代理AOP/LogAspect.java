@@ -44,13 +44,12 @@ public class LogAspect {
         String methodName = joinPoint.getSignature().getName();
         logger.info(methodName + "方法开始执行，入参：" + JSONObject.toJSONString(joinPoint.getArgs(), SerializerFeature.WriteMapNullValue));
         Object proceed = null;
-        proceed = joinPoint.proceed();
-        /*try {
+        try {
             proceed = joinPoint.proceed();
         } catch (Throwable throwable) {
             logger.error("methodName" + "方法出现异常!");
             logger.error("异常信息为：" + throwable.getMessage());
-        }*/
+        }
         logger.info(methodName + "方法执行完毕，出参：：" + JSONObject.toJSONString(proceed, SerializerFeature.WriteMapNullValue));
         return proceed;
     }

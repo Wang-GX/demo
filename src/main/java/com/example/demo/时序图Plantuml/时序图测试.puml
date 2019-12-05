@@ -1,0 +1,23 @@
+@startuml
+
+'声明用户:
+actor app用户
+
+'声明服务，数值越大，距离越远:
+participant APP客户端 order 10
+participant 支付客户端 order 30
+participant webManager order 50
+participant 订单系统 order 70
+
+'声明调用关系:
+app用户 -> APP客户端 : 用户申请下单
+APP客户端 ->webManager : 对外下单接口
+'指向自己，代表调用自身
+webManager -> webManager : 递归
+webManager ->订单系统 : 下单接口
+'可以使用实线，也可以使用虚线
+订单系统 -->webManager : 返回订单信息交易单号
+webManager -->APP客户端 : 返回订单信息交易单号
+APP客户端 -->app用户 : 展示订单信息
+
+@enduml
