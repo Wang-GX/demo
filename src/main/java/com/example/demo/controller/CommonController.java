@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/common/controller")
-public class ControllerTest {
+public class CommonController {
 
     @PostMapping("/test")
     public void springAopTest() {
