@@ -31,15 +31,14 @@ public class LogAspect {
      *                                异常      -->After-->AfterThrowing
      */
 
-    //声明切点(以方法为颗粒度)
+    //声明切入点(以方法为最小颗粒度)
     @Pointcut("execution(* com.example.demo.controller..*.*(..))")
     public void pointcut() {
     }
 
-    //声明通知类型和通知逻辑以及作用范围(通知作用于切入点这一动作称为切面，见图示)
-    //环绕通知和其他通知同时使用时可能会出现问题，建议使用环绕通知替代其他通知
+    //声明通知类型和通知逻辑以及作用范围(通知和切入点的结合称为切面）
     @Around("pointcut()")
-    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object around(ProceedingJoinPoint joinPoint) {
         //获取方法名
         String methodName = joinPoint.getSignature().getName();
         logger.info(methodName + "方法开始执行，入参：" + JSONObject.toJSONString(joinPoint.getArgs(), SerializerFeature.WriteMapNullValue));
@@ -55,25 +54,25 @@ public class LogAspect {
     }
 
     @Before("pointcut()")
-    //前置通知：在切点方法执行之前执行
+    //前置通知：在切入点方法执行之前执行
     public void before() {
         System.out.println("before");
     }
 
     @After("pointcut()")
-    //后置通知：切点方法执行之后执行
+    //后置通知：在切入点方法执行之后执行
     public void after() {
         logger.info("after");
     }
 
     @AfterReturning("pointcut()")
-    //返回通知：切点方法返回之后执行(可以理解为是回调)
+    //返回通知：在切入点方法返回之后执行(可以理解为是回调)
     public void afterReturning() {
         logger.info("afterReturning");
     }
 
     @AfterThrowing("pointcut()")
-    //异常通知：切点方法抛出异常时执行
+    //异常通知：在切入点方法抛出异常时执行
     public void afterThrowing() {
         logger.info("afterThrowing");
     }

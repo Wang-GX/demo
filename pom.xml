@@ -127,10 +127,6 @@
             <artifactId>guava</artifactId>
             <version>23.6-jre</version>
         </dependency>
-
-
-
-
         <!--easy-rules规则引擎-->
         <dependency>
             <groupId>org.jeasy</groupId>
@@ -141,6 +137,17 @@
             <groupId>org.jeasy</groupId>
             <artifactId>easy-rules-mvel</artifactId>
             <version>3.3.0</version>
+        </dependency>
+        <!--tx-lcn分布式事务-->
+        <dependency>
+            <groupId>com.codingapi.txlcn</groupId>
+            <artifactId>txlcn-tc</artifactId>
+            <version>5.0.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>com.codingapi.txlcn</groupId>
+            <artifactId>txlcn-txmsg-netty</artifactId>
+            <version>5.0.2.RELEASE</version>
         </dependency>
 
         <!--日期时间工具类-->
