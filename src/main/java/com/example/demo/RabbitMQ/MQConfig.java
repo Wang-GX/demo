@@ -91,7 +91,7 @@ public class MQConfig {
 
     */
 /**
-     * 声明交换机(Direct模式)
+     * 声明交换机(Fanout模式)
      * @return
      *//*
 
