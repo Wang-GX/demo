@@ -1,12 +1,11 @@
 package com.example.demo.定时任务_分布式锁.Redission;
 
-import com.example.demo.mapper.UserMapper;
-import com.example.demo.pojo.User;
+import com.example.demo.common.mapper.UserMapper;
+import com.example.demo.common.pojo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;

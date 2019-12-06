@@ -1,12 +1,15 @@
-package com.example.demo.pojo;
+package com.example.demo.common.pojo;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
+
 @Data
+@EqualsAndHashCode(callSuper = true)
 @TableName("user")
 public class User extends Model<User> implements Serializable {
     //可以点击IDEA左侧的Structure查看当前类的结构(属性，方法)
@@ -20,9 +23,9 @@ public class User extends Model<User> implements Serializable {
     @TableField("user_age")
     private String userAge;
     @TableField(exist = false)
-    private String authorName;
+    private String fatherName;
     @TableField(exist = false)
-    private String authorHeight;
+    private String fatherHeight;
 
     //乐观锁版本号，如果需要使用乐观锁，确保数据库中有此字段
     @Version

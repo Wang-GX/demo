@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages = "com.example.demo.mapper")
+@MapperScan(basePackages = "com.example.demo.common.mapper")
 //@EnableScheduling//开启@Scheduled注解标识的定时任务
 /**
  * 注意：这里有一个坑

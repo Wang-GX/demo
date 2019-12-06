@@ -1,6 +1,6 @@
 package com.example.demo.SpringJavaConfig配置Bean;
 
-import com.example.demo.pojo.User;
+import com.example.demo.common.pojo.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -25,21 +25,21 @@ public class CustomizeConfig {
     @Value("${my.userAge}")
     private String userAge;
 
-    //TODO 通过前缀+属性名注入，设置的属性必须要有set方法!!!(这里指的是配置类)，通过调用set方法注入author.name属性值
-    private String authorName;
+    //TODO 通过前缀+属性名注入，设置的属性必须要有set方法!!!(这里指的是配置类)，通过调用set方法注入father.name属性值
+    private String fatherName;
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
     }
 
 
-    @Value("${my.authorHeight2}")
+    @Value("${my.fatherHeight2}")
     //TODO 通过@Value注入，属性名任意
-    //通过@Value注入my.authorHeight2属性值，然后调用set方法注入my.authorHeight属性值，所以最终的值为my.authorHeight的属性值[通过debug观察]
-    private String authorHeight;
+    //通过@Value注入my.fatherHeight2属性值，然后调用set方法注入my.fatherHeight属性值，所以最终的值为my.fatherHeight的属性值[通过debug观察]
+    private String fatherHeight;
 
-    public void setAuthorHeight(String authorHeight) {
-        this.authorHeight = authorHeight;
+    public void setFatherHeight(String fatherHeight) {
+        this.fatherHeight = fatherHeight;
     }
 
     @Bean("userByCustomizeConfig")
@@ -48,8 +48,8 @@ public class CustomizeConfig {
         user.setUserName(userName);
         user.setUserSex(userSex);
         user.setUserAge(userAge);
-        user.setAuthorName(authorName);
-        user.setAuthorHeight(authorHeight);
+        user.setFatherName(fatherName);
+        user.setFatherHeight(fatherHeight);
         return user;
     }
 

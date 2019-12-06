@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.mapper.UserMapper;
+import com.example.demo.common.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

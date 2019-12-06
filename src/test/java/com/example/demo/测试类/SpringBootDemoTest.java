@@ -1,7 +1,7 @@
 package com.example.demo.测试类;
 
 import com.example.demo.DemoApplication;
-import com.example.demo.pojo.User;
+import com.example.demo.common.pojo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Ignore;
 import org.junit.Test;

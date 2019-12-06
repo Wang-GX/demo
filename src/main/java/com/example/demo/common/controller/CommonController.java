@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.common.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ public class CommonController {
 
     @PostMapping("/test")
     public void springAopTest() {
-        System.out.println(1 / 0);
+        //System.out.println(1 / 0);
         System.out.println("测试Spring AOP");
     }
 }

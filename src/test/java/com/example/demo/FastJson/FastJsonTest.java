@@ -2,7 +2,7 @@ package com.example.demo.FastJson;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.example.demo.pojo.User;
+import com.example.demo.common.pojo.User;
 
 public class FastJsonTest {
     public static void main(String[] args) {

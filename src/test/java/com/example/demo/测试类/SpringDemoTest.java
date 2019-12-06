@@ -1,7 +1,7 @@
 package com.example.demo.测试类;
 
 
-import com.example.demo.pojo.User;
+import com.example.demo.common.pojo.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

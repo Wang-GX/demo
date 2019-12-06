@@ -1,4 +1,4 @@
-package com.example.demo.动态代理AOP;
+package com.example.demo.SpringAOP;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

@@ -1,7 +1,7 @@
 package com.example.demo.事务的隔离级别和传播行为以及Spring事务;
 
-import com.example.demo.mapper.UserMapper;
-import com.example.demo.pojo.User;
+import com.example.demo.common.mapper.UserMapper;
+import com.example.demo.common.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

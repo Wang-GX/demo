@@ -2,7 +2,7 @@ package com.example.demo.MybatisPlusTest;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.demo.DemoApplication;
-import com.example.demo.pojo.User;
+import com.example.demo.common.pojo.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

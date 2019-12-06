@@ -1,4 +1,4 @@
-package com.example.demo.动态代理AOP;
+package com.example.demo.SpringAOP;
 
 
 import com.alibaba.fastjson.JSONObject;
@@ -42,7 +42,7 @@ public class LogAspect {
      */
 
     //声明切入点(以方法为最小颗粒度)
-    @Pointcut("execution(* com.example.demo.controller..*.*(..))")
+    @Pointcut("execution(* com.example.demo.common.controller..*.*(..))")
     public void pointcut() {
     }
 

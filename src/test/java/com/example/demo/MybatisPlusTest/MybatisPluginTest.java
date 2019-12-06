@@ -1,7 +1,7 @@
 package com.example.demo.MybatisPlusTest;
 
-import com.example.demo.mapper.UserMapper;
-import com.example.demo.pojo.User;
+import com.example.demo.common.mapper.UserMapper;
+import com.example.demo.common.pojo.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

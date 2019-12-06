@@ -1,7 +1,7 @@
 package com.example.demo.Mybatis相关;
 
-import com.example.demo.mapper.UserMapper;
-import com.example.demo.pojo.User;
+import com.example.demo.common.mapper.UserMapper;
+import com.example.demo.common.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

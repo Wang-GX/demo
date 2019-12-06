@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="user" class="com.example.demo.pojo.User">
+    <bean id="user" class="com.example.demo.common.pojo.User">
         <property name="userName" value="spring"/>
         <property name="userAge" value="10"/>
     </bean>

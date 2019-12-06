@@ -1,6 +1,6 @@
 package com.example.demo.Mybatis相关;
 
-import com.example.demo.pojo.User;
+import com.example.demo.common.pojo.User;
 
 public interface MybatisService {
 

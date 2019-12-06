@@ -1,6 +1,6 @@
 package com.example.demo.RabbitMQ;
 
-import com.example.demo.pojo.User;
+import com.example.demo.common.pojo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;

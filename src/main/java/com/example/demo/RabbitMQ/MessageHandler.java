@@ -1,10 +1,9 @@
 package com.example.demo.RabbitMQ;
 
-import com.example.demo.pojo.User;
+import com.example.demo.common.pojo.User;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.utils.SerializationUtils;
 import org.springframework.stereotype.Component;
 
