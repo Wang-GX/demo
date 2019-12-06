@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
+
+
 @Service
 public class MybatisServiceImpl implements MybatisService{
 
@@ -16,8 +19,13 @@ public class MybatisServiceImpl implements MybatisService{
     @Qualifier("userByDefaultConfig")
     private User xxx;
 
+    @Autowired
+    @Qualifier("DruidPool")
+    private DataSource druidPoolDataSource;
+
     @Override
     public User getUser() {
+
 //        userMapper.getUser();
 //        userMapper.getUser();
 //        userMapper.getUser();

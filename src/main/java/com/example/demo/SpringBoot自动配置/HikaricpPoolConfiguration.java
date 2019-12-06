@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
@@ -23,6 +24,7 @@ public class HikaricpPoolConfiguration {
 
     //因为如果IOC容器中有DataSource对象，那么默认配置(HikariCP数据源)就不会生效，所以这里为了演示多数据源，需要手动进行配置以及注入到IOC容器中
     @Bean("HikaricpPool")
+    @Primary
     public DataSource getHikaricpPool(){
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setJdbcUrl(dbUrl);

@@ -24,7 +24,7 @@ public class DruidPoolConfiguration {
     private String driverClassName;
 
     @Bean("DruidPool")
-    @Primary
+    //@Primary
     public DataSource getDruidPool(){
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setUrl(dbUrl);
