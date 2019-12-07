@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -13,7 +14,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-@Component
+//@Component
 public class RedissonTest {
 
     @Autowired

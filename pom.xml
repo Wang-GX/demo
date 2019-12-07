@@ -66,18 +66,18 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>${mybatis.version}</version>
         </dependency>-->
-        <!--Mybatis-Plus-->
+        <!--MybatisPlus-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.1.0</version>
         </dependency>
-        <!--多数据源配置-->
-        <!--<dependency>
+        <!--MybatisPlus多数据源配置-->
+        <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
             <version>2.5.6</version>
-        </dependency>-->
+        </dependency>
         <!--Druid数据库连接池-->
         <dependency>
             <groupId>com.alibaba</groupId>

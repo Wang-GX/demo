@@ -1,3 +1,4 @@
+/*
 package com.example.demo.SpringBoot自动配置;
 
 import com.zaxxer.hikari.HikariDataSource;
@@ -8,7 +9,7 @@ import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
-@Configuration
+//@Configuration
 public class HikaricpPoolConfiguration {
     @Value("${spring.datasource.url}")
     private String dbUrl;
@@ -22,7 +23,7 @@ public class HikaricpPoolConfiguration {
     @Value("${spring.datasource.driver-class-name}")
     private String driverClassName;
 
-    //因为如果IOC容器中有DataSource对象，那么默认配置(HikariCP数据源)就不会生效，所以这里为了演示多数据源，需要手动进行配置以及注入到IOC容器中
+    //因为如果IOC容器中有DataSource对象，那么默认配置(HikariCP数据源)就不会生效，所以这里为了注入多个DataSource对象，需要手动进行配置以及注入到IOC容器中
     @Bean("HikaricpPool")
     @Primary
     public DataSource getHikaricpPool(){
@@ -34,3 +35,4 @@ public class HikaricpPoolConfiguration {
         return dataSource;
     }
 }
+*/

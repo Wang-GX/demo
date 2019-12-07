@@ -1,3 +1,4 @@
+/*
 package com.example.demo.SpringBoot自动配置;
 
 import com.alibaba.druid.pool.DruidDataSource;
@@ -8,7 +9,7 @@ import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
-@Configuration
+//@Configuration
 public class DruidPoolConfiguration {
 
     @Value("${spring.datasource.url}")
@@ -34,3 +35,4 @@ public class DruidPoolConfiguration {
         return dataSource;
     }
 }
+*/

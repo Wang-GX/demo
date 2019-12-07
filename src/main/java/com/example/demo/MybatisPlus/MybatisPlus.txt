@@ -61,9 +61,9 @@ Mybatis-Plus
 
 6. SQL注入器：就像MybatisPlus在BaseMapper中为我们定义好的那些通用方法一样，我们也可以继续扩展属于自己的通用方法。
               BaseMapper
-                  ↑
+                  ↑继承
                   自定义BaseMapper
-                      ↑
+                      ↑继承
                       Mapper
 
     使用方式(BaseMapper中定义好的方法也都是通过这种方式添加到Mybatis容器中供我们使用的)：
@@ -74,3 +74,5 @@ Mybatis-Plus
            TODO!!! 特别注意：重写getMethodList方法时，必须先调用父类同名方法获取到methodList，然后将自定义的方法类对象添加到该集合中并返回。否则在调用BaseMapper原有定义方法(如selectById())时，会抛出Invalid bound statement (not found)异常。
         (5)将自定义SQL注入器注入到Spring的IOC容器中。
         (5)Mapper接口调用Mybatis容器中的方法。
+
+7. 多数据源配置
