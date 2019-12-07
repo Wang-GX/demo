@@ -2,12 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo.common.mapper.UserMapper">
 
-    <cache/>
+    <!--<cache/>-->
 
     <select id="getUser" resultType="User">
         select * from user where user.id = 1;
     </select>
-
 
     <insert id="insertUser" useGeneratedKeys="true">
         insert into user(
@@ -18,5 +17,58 @@
         )
     </insert>
 
+    <select id="testIf" resultType="com.example.demo.common.pojo.User">
+        select * from user where 1=1
+        <if test=" user.userName != null and user.userName != '' ">
+            and user_name = #{user.userName}
+        </if>
+    </select>
+
+    <select id="testChoose" resultType="com.example.demo.common.pojo.User">
+        select * from user where 1=1
+        <choose>
+            <when test=" user.userSex = 2">
+                and user_sex = 2
+            </when>
+            <when test=" user.userSex = 1">
+                and user_sex = 1
+            </when>
+            <otherwise>
+
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="testWhere" resultType="com.example.demo.common.pojo.User">
+        select * from user
+        <where>
+            <if test=" user.userName != null and user.userName != '' ">
+                and user_name = #{user.userName}
+            </if>
+            <if test=" user.userSex != null and user.userSex != '' ">
+                and user_sex = #{user.userSex}
+            </if>
+        </where>
+    </select>
+
+    <update id="testSet">
+        update user
+        <set>
+            <if test=" user.userSex != null and user.userSex != '' ">
+                user_sex = #{user.userSex},
+            </if>
+            <if test=" user.userAge != null and user.userAge != '' ">
+                user_age = #{user.userAge},
+            </if>
+        </set>
+        where user_name = #{user.userName}
+    </update>
+
+    <select id="testForEach" resultType="com.example.demo.common.pojo.User">
+        select * from user where user_age in
+        <foreach collection="userAgeList" item="userAgeItem" open="(" close=")" separator=",">
+            #{userAgeItem}
+        </foreach>
+    </select>
 
 </mapper>

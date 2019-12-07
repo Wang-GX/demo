@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/")
 public class MybatisController {
@@ -21,21 +24,63 @@ public class MybatisController {
 
     /**
      * 测试类型别名
+     *
      * @return
      */
     @PostMapping("getUser")
-    public User getUser(){
+    public User getUser() {
         return this.mybatisService.getUser();
     }
 
     /**
      * 测试自增主键回显以及@Param注解标识对象
+     *
      * @param user
      * @return
      */
     @PostMapping("insertUser")
-    public User insertUser(@RequestBody User user){
-        return this.mybatisService.insertUser(user);
+    public void insertUser(@RequestBody User user) {
+        this.mybatisService.insertUser(user);
+    }
+
+    //测试模糊查询
+
+    //以下为动态SQL相关测试
+
+    @PostMapping("dynamicSQL")
+    public void testDynamicSQL() {
+        //<if>标签测试
+        User user1 = new User();
+        user1.setUserName("zhangsan");
+        List<User> userList1 = this.mybatisService.testIf(user1);
+        System.out.println("if" + userList1);
+
+        //<choose>/<when>/<otherwise>标签测试
+        User user2 = new User();
+        user2.setUserSex("1");
+        List<User> userList2 = this.mybatisService.testChoose(user2);
+        System.out.println("choose:" + userList2);
+
+        //<where>/<set>/<trim>标签测试
+        User user3 = new User();
+        user3.setUserName("zhangsan");
+        user3.setUserSex("1");
+        user3.setUserAge("18");
+        List<User> userList3 = this.mybatisService.testWhere(user3);
+        System.out.println(userList3);
+        System.out.println("where:" + userList3);
+        Integer count = this.mybatisService.testSet(user3);
+        System.out.println("set：" + count);
+
+        //<foreach>标签测试
+        List<Integer> userAgeList = new ArrayList<>();
+        userAgeList.add(18);
+        userAgeList.add(19);
+        userAgeList.add(20);
+        List<User> userList4 = this.mybatisService.testForEach(userAgeList);
+        System.out.println("foreach：" + userList4);
+
+
     }
 
 }
