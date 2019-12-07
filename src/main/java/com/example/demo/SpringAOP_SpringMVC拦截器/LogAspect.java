@@ -11,6 +11,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
+ * AOP：可以切入任意方法(连接点)
  * 连接点(JoinPoint)：Spring允许你通知（Advice）的地方。
  * 切入点(Pointcut)：筛选的连接点。
  * 通知、增强处理(Advice)：就是你想要的功能。
@@ -24,8 +25,8 @@ import org.springframework.stereotype.Component;
 @Aspect
 /**
  * @Order注解可以指定多个通知同时作用时的执行顺序
- * 数值越小的环绕通知前置越先执行，后置越后执行。即如果环绕通知1的数值 < 环绕通知2的数值，则执行顺序为：
- *           环绕通知1前置-->环绕通知1前置-->目标方法-->环绕通知2后置-->环绕通知1后置
+ * 数值越小则前置越先执行，后置越后执行。即如果环绕通知1的数值 < 环绕通知2的数值，则执行顺序为：
+ *           环绕通知1前置-->环绕通知2前置-->目标方法-->环绕通知2后置-->环绕通知1后置
  * 可以看出这是就一个典型的责任链模式的顺序
  */
 @Order(1)
@@ -34,32 +35,26 @@ public class LogAspect {
 
     private static Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
-
-    /**
-     * AOP执行顺序说明：
-     * Around-->Before--> target 正常或捕获异常 -->Around-->After-->AfterReturning
-     *                                异常      -->After-->AfterThrowing
-     */
-
     //声明切入点(以方法为最小颗粒度)
     @Pointcut("execution(* com.example.demo.common.controller..*.*(..))")
     public void pointcut() {
     }
 
     //声明通知类型和通知逻辑以及作用范围(通知和切入点的结合称为切面）
+    //TODO 环绕通知与其他通知最好不要同时使用！执行顺序可能存在问题。优先使用其他通知。
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint joinPoint) {
         //获取方法名
         String methodName = joinPoint.getSignature().getName();
-        logger.info(methodName + "方法开始执行，入参：" + JSONObject.toJSONString(joinPoint.getArgs(), SerializerFeature.WriteMapNullValue));
+        logger.info("around：" + methodName + "方法开始执行，入参：" + JSONObject.toJSONString(joinPoint.getArgs(), SerializerFeature.WriteMapNullValue));
         Object proceed = null;
         try {
             proceed = joinPoint.proceed();
         } catch (Throwable throwable) {
-            logger.error("methodName" + "方法出现异常!");
+            logger.error("afterThrowing：" + methodName + "方法出现异常!");
             logger.error("异常信息为：" + throwable.getMessage());
         }
-        logger.info(methodName + "方法执行完毕，出参：：" + JSONObject.toJSONString(proceed, SerializerFeature.WriteMapNullValue));
+        logger.info("around：" + methodName + "方法执行完毕，出参：：" + JSONObject.toJSONString(proceed, SerializerFeature.WriteMapNullValue));
         return proceed;
     }
 

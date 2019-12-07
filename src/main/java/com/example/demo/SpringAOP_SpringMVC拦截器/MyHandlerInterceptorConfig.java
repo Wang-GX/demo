@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class MyWebConfig implements WebMvcConfigurer {
+public class MyHandlerInterceptorConfig implements WebMvcConfigurer {
 
     /**
      * 注册拦截器
