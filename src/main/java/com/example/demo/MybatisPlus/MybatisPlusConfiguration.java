@@ -1,6 +1,8 @@
 package com.example.demo.MybatisPlus;
 
+import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
+import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
@@ -42,7 +44,7 @@ public class MybatisPlusConfiguration {
         return sqlExplainInterceptor;
     }
 
-    //配置Mybatis性能分析插件
+    //配置Mybatis性能分析插件(该插件于3.2.0版本移除)
     //当配置此插件后，会输出每条SQL语句的执行时间。可以设置SQL语句允许的最大执行时长，如果超过此时长则会抛出异常。异常信息为：The SQL execution time is too large, please optimize ！
     //TODO 注意：该插件仅适用于开发环境，进行SQL语句的性能优化，不适用于生产环境。
     //@Bean

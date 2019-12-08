@@ -4,13 +4,17 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.util.List;
 
 
 @Data
-@EqualsAndHashCode(callSuper = true)
+/**
+ * 下面这两个注解都将是在使用MybatisPlus代码生成器时自动生成的，可以认为是MybatisPlus的推荐配置，不需要过于纠结。
+ */
+@EqualsAndHashCode(callSuper = false)//只使用本类属性生成hashcode，而不使用从父类继承的属性(等效于不加任何lombok注解)
+@Accessors(chain = true)//调用set方法返回值为当前对象，方便链式调用设置属性值
 @TableName("user")
 public class User extends Model<User> implements Serializable {
     //可以点击IDEA左侧的Structure查看当前类的结构(属性，方法)
@@ -29,9 +33,13 @@ public class User extends Model<User> implements Serializable {
     @TableField(exist = false)
     private String fatherHeight;
 
-    //乐观锁版本号，如果需要使用乐观锁，确保数据库中有此字段
+    //乐观锁版本号，如果需要使用乐观锁插件，确保数据库中有此字段
     @Version
     private Integer version;
+
+    //逻辑删除标记(0：未删除/1：删除)，如果需要使用逻辑删除，确保数据库中有此字段
+    //@TableLogic
+    //private Integer deleted;
 
 }
 

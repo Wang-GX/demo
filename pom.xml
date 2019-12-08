@@ -70,7 +70,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.1.0</version>
+            <version>3.1.1</version>
         </dependency>
         <!--MybatisPlus多数据源配置-->
         <dependency>
