@@ -80,7 +80,13 @@ public class MybatisController {
         List<User> userList4 = this.mybatisService.testForEach(userAgeList);
         System.out.println("foreach：" + userList4);
 
+    }
 
+
+    @PostMapping("resultMap")
+    public void testResultMap() {
+        User user = this.mybatisService.testResultMap();
+        System.out.println(user);
     }
 
 }

@@ -19,4 +19,6 @@ public interface MybatisService {
     Integer testSet(User user);
 
     List<User> testForEach(List<Integer> userAgeList);
+
+    User testResultMap();
 }

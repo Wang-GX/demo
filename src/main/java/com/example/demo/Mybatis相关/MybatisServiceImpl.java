@@ -56,4 +56,9 @@ public class MybatisServiceImpl implements MybatisService {
     public List<User> testForEach(List<Integer> userAgeList) {
         return this.userMapper.testForEach(userAgeList);
     }
+
+    @Override
+    public User testResultMap(){
+        return this.userMapper.testResultMap();
+    }
 }

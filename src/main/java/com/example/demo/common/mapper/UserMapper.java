@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-//@DS("master")
-@DS("slave_1")
+@DS("master")
+//@DS("slave_1")
 public interface UserMapper extends MyBaseMapper<User> {
 
     User getUser();
@@ -25,5 +25,6 @@ public interface UserMapper extends MyBaseMapper<User> {
 
     List<User> testForEach(@Param("userAgeList")List<Integer> userAgeList);
 
+    User testResultMap();
 
 }

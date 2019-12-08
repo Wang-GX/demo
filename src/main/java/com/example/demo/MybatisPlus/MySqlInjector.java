@@ -2,13 +2,8 @@ package com.example.demo.MybatisPlus;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
-import com.baomidou.mybatisplus.core.injector.methods.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
 
 /**
  * 自定义SQL注入器

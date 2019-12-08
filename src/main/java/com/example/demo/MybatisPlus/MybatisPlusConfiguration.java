@@ -99,10 +99,16 @@ public class MybatisPlusConfiguration {
     }
 
 
-    //配置SQL注入器
+    //配置自定义SQL注入器
     @Bean
     public MySqlInjector mySqlInjector() {
         return new MySqlInjector();
+    }
+
+    //配置自定义SQL填充器
+    //@Bean
+    public MyMetaObjectHandler myMetaObjectHandler(){
+        return new MyMetaObjectHandler();
     }
 
 }

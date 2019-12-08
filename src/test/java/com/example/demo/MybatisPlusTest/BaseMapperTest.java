@@ -204,6 +204,7 @@ class BaseMapperTest {
         user.setUserName("mybatisPlus");
         user.setUserSex("1");
         user.setUserAge("10");
+        user.setFatherHeight("9");
         int count = this.userMapper.insert(user);
         System.out.println("数据库受影响的行数为：" + count);
         //主键回显

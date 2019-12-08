@@ -71,4 +71,24 @@
         </foreach>
     </select>
 
+
+    <!--resultMap标签-->
+    <!--
+        主要解决了两大问题：
+            (1)数据表字段名与实体类属性名不一致(也不满足驼峰匹配)，无法完成结果集的自动映射，需要起别名才能完成映射。
+            (2)复杂的关联查询，结果集无法直接完成映射。
+    -->
+    <!--<resultMap id="userResultMap" type="com.example.demo.common.pojo.User" autoMapping="true">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_sex" property="userSex"/>
+        <result column="user_age" property="userAge"/>
+        <association property="father" javaType="com.example.demo.common.pojo.User" autoMapping="true"/>
+        <collection property="sons" javaType="java.util.List" autoMapping="true"/>
+    </resultMap>
+
+    <select id="testResultMap" resultMap="userResultMap">
+        select * from user where id = 1
+    </select>-->
+
 </mapper>

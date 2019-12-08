@@ -75,4 +75,13 @@ Mybatis-Plus
         (5)将自定义SQL注入器注入到Spring的IOC容器中。
         (5)Mapper接口调用Mybatis容器中的方法。
 
+7. 自动填充
+    如果使用[MybatisPlus!]提供的api操作数据库，在满足一定条件的情况下将会对数据表中的字段值进行自动填充。只适用于insert和update语句。
+    使用方式：
+        (1)实体类@TableField(fill = FieldFill.INSERT/UPDATE/INSERT_UPDATE)，指定针对哪种SQL语句进行自动填充。
+        (2)编写自定义SQL填充器实现MetaObjectHandler，重写insertFill或updateFill方法，指定在什么条件下进行自动填充。
+        (3)将自定义SQL填充器注入到Spring的IOC容器中。
+        (4)在调用特定的SQL语句以及满足自动填充条件时，字段的值将会被自动填充。
+
+
 7. 多数据源配置
