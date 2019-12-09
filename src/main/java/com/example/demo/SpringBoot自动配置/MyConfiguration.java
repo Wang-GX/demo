@@ -29,7 +29,7 @@ public class MyConfiguration {
     }
 
     @Bean(name = "cloths")
-    //@ConditionalOnProperty(prefix = "game.config", value = {"clothsName","defensivePower"},matchIfMissing = {"jjzj",""})
+    //@ConditionalOnProperty(prefix = "game.config", value = {"clothsName","defensivePower"},matchIfMissing = {"荆棘之甲",""})
     @ConditionalOnProperty(prefix = "game.config", name = {"sex"},matchIfMissing = true)
     //matchIfMissing = true：选择的属性值无论是否为null都会执行这个方法
     //matchIfMissing = false(默认)：选择的属性值如果为null(配置文件中没有配置并且属性类中没有给默认值)就不执行这个方法，TODO 报错
