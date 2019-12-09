@@ -1,7 +1,4 @@
 ES
-XXljob定时任务框架
-Redisson分布式锁
+XXljob分布式定时任务框架(*)
 Lcn分布式事务
-规则引擎easy-rules(完成)
 手动启动器，并完成SpringBoot自动配置的模拟效果
-时序图plan-uml
