@@ -15,7 +15,7 @@ import java.util.List;
 
 @Api(value = "Mybatis相关", tags = "Mybatis相关")
 @RestController
-@RequestMapping("/")
+@RequestMapping("/mybatis")
 public class MybatisController {
 
     @Autowired

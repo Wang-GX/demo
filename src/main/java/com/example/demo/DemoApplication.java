@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@EnableSwagger2
 @SpringBootApplication
 @MapperScan(basePackages = "com.example.demo.common.mapper")
 //@EnableScheduling//开启@Scheduled注解标识的定时任务

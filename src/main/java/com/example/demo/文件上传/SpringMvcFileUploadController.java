@@ -1,5 +1,7 @@
 package com.example.demo.文件上传;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -16,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Api(value = "文件上传",tags = "文件上传")
 @RestController
 public class SpringMvcFileUploadController {
 
@@ -28,6 +31,7 @@ public class SpringMvcFileUploadController {
      * @param files
      * @return
      */
+    @ApiOperation("文件批量上传")
     @PostMapping("/file/upload")
     public List<String> fileUpload(MultipartFile[] files) {
 

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableConfigurationProperties(MyProperties.class)
+@EnableConfigurationProperties(MyProperties.class)//指定注入的属性类，可以通过该注解隐式注入，也可以通过@Autowired显式注入。后者需要声明属性类为Spring的bean。
 public class MyConfiguration {
 
     /*@Bean
@@ -20,6 +20,7 @@ public class MyConfiguration {
 
     @Bean(name = "weapon")
     @ConditionalOnClass({WeaponMust1.class, WeaponMust2.class})//TODO(*)该注解暂未测试
+    //该注解指定的类必须存在才会执行这个方法
     public Weapon createWeapon(MyProperties properties) {
         //测试@ConditionalOnClass注解
         Weapon weapon = new Weapon();
