@@ -166,7 +166,7 @@ class BaseMapperTest {
      */
     @Test
     void testSelectPage() {
-        Page<User> page = new Page<>(1, 1);
+        Page<User> page = new Page<>(1, 10);
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("user_name", "zhangsan");
         IPage<User> iPage = this.userMapper.selectPage(page, wrapper);

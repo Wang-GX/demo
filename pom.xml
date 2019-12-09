@@ -144,24 +144,17 @@
             <artifactId>easy-rules-mvel</artifactId>
             <version>3.3.0</version>
         </dependency>
-        <!--tx-lcn分布式事务-->
-        <!--<dependency>
-            <groupId>com.codingapi.txlcn</groupId>
-            <artifactId>txlcn-tc</artifactId>
-            <version>5.0.2.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.codingapi.txlcn</groupId>
-            <artifactId>txlcn-txmsg-netty</artifactId>
-            <version>5.0.2.RELEASE</version>
-        </dependency>-->
-
         <!--日期时间工具类-->
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
         </dependency>
-
+        <!--对象类型转换BeanMapper工具类所需依赖-->
+        <dependency>
+            <groupId>ma.glasnost.orika</groupId>
+            <artifactId>orika-core</artifactId>
+            <version>1.4.5</version>
+        </dependency>
         <!--Excel处理-->
         <dependency>
             <groupId>com.alibaba</groupId>
