@@ -1,6 +1,8 @@
 package com.example.demo.Mybatis相关;
 
 import com.example.demo.common.pojo.User;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+@Api(value = "Mybatis相关", tags = "Mybatis相关")
 @RestController
 @RequestMapping("/")
 public class MybatisController {
@@ -27,6 +30,7 @@ public class MybatisController {
      *
      * @return
      */
+    @ApiOperation(value = "测试类型别名")
     @PostMapping("getUser")
     public User getUser() {
         return this.mybatisService.getUser();
@@ -38,15 +42,14 @@ public class MybatisController {
      * @param user
      * @return
      */
+    @ApiOperation(value = "测试自增主键回显以及@Param注解标识对象")
     @PostMapping("insertUser")
     public void insertUser(@RequestBody User user) {
         this.mybatisService.insertUser(user);
     }
 
-    //测试模糊查询
-
     //以下为动态SQL相关测试
-
+    @ApiOperation(value = "测试动态SQL")
     @PostMapping("dynamicSQL")
     public void testDynamicSQL() {
         //<if>标签测试
@@ -82,7 +85,7 @@ public class MybatisController {
 
     }
 
-
+    @ApiOperation(value = "测试resultMap(未完成!)")
     @PostMapping("resultMap")
     public void testResultMap() {
         User user = this.mybatisService.testResultMap();

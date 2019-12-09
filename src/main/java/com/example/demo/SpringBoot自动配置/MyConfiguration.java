@@ -28,7 +28,7 @@ public class MyConfiguration {
         return weapon;
     }
 
-    @Bean(name = "clotths")
+    @Bean(name = "cloths")
     //@ConditionalOnProperty(prefix = "game.config", value = {"clothsName","defensivePower"},matchIfMissing = {"jjzj",""})
     @ConditionalOnProperty(prefix = "game.config", name = {"sex"},matchIfMissing = true)
     //matchIfMissing = true：选择的属性值无论是否为null都会执行这个方法

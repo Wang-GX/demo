@@ -13,7 +13,7 @@ public class MyHandlerInterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //拦截所有请求，如果项目实现了前后端分离，那么不需要考虑静态资源
-        registry.addInterceptor(new MyHandlerInterceptor()).addPathPatterns("/**").excludePathPatterns("/getUser");
+        //registry.addInterceptor(new MyHandlerInterceptor()).addPathPatterns("/**").excludePathPatterns("/getUser").excludePathPatterns("/v2/swagger-resources/**", "/v2/swagger-ui.html/**");
     }
 
 }
