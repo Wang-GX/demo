@@ -1,3 +1,4 @@
+/*
 package com.example.demo.规则引擎easyRules;
 
 import org.jeasy.rules.annotation.*;
@@ -20,3 +21,4 @@ public class DivisibleByThree_Rules {
         return 2;
     }
 }
+*/

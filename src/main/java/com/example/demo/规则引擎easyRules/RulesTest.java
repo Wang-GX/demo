@@ -19,10 +19,10 @@ public class RulesTest {
         Rules rules = new Rules();
 
         //注册规则
-        rules.register(new DivisibleByThree_Rules());
-        rules.register(new DivsibleByTwo_Rules());
-        rules.register(new DivisibleByTwoAndThree(new DivsibleByTwo_Rules(),new DivisibleByThree_Rules()));
-        rules.register(new Other_Rules());
+        rules.register(new DivisibleRule.DivisibleByThree_Rules());
+        rules.register(new DivisibleRule.DivsibleByTwo_Rules());
+        rules.register(new DivisibleRule.DivisibleByTwoAndThree(new DivisibleRule.DivsibleByTwo_Rules(),new DivisibleRule.DivisibleByThree_Rules()));
+        rules.register(new DivisibleRule.Other_Rules());
 
         //创建事实
         Facts facts = new Facts();

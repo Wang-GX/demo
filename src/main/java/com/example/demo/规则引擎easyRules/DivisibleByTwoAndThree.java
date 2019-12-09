@@ -1,3 +1,4 @@
+/*
 package com.example.demo.规则引擎easyRules;
 
 import org.jeasy.rules.annotation.*;
@@ -6,6 +7,7 @@ import org.jeasy.rules.support.UnitRuleGroup;
 @Rule(name = "被2和3同时整除", description = "number如果被2和3同时整除，打印：number is two and three")
 public class DivisibleByTwoAndThree extends UnitRuleGroup {
 
+    //通过构造方法注入指定规则，形成一组规则。同时满足时，同时执行，否则都不执行，进入下一个优先级的规则进行判断。
     public DivisibleByTwoAndThree(Object... rules) {
         for (Object rule : rules) {
             addRule(rule);
@@ -17,3 +19,4 @@ public class DivisibleByTwoAndThree extends UnitRuleGroup {
         return 0;
     }
 }
+*/
