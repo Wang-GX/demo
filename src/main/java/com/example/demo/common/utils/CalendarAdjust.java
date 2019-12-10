@@ -6,6 +6,9 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+/**
+ * 参考：https://www.cnblogs.com/lingyejun/p/11298186.html
+ */
 public class CalendarAdjust {
 
     //默认取东八区(北京时间)，如果需要修改，请参考：CalendarAdjustGlobal

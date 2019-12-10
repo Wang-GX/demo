@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
-//这个类用来展示Spring的IOC容器
+//这个类用来展示SpringIOC容器中的bean
 @Component
 public class SpringIocShow implements ApplicationContextAware {
     private static ApplicationContext applicationContext;
