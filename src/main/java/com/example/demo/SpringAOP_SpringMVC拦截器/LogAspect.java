@@ -24,6 +24,11 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 /**
+ * AOP的约定流程：
+ * 参考：https://www.cnblogs.com/lx-1024/p/8033765.html
+ * around before-->before-->target-->around after-->after-->afterReturning
+ * around before-->before-->target-->after-->afterThrowing
+ *
  * @Order注解可以指定多个通知同时作用时的执行顺序
  * 数值越小则前置越先执行，后置越后执行。即如果环绕通知1的数值 < 环绕通知2的数值，则执行顺序为：
  *           环绕通知1前置-->环绕通知2前置-->目标方法-->环绕通知2后置-->环绕通知1后置
@@ -51,8 +56,7 @@ public class LogAspect {
         try {
             proceed = joinPoint.proceed();
         } catch (Throwable throwable) {
-            logger.error("afterThrowing：" + methodName + "方法出现异常!");
-            logger.error("异常信息为：" + throwable.getMessage());
+            logger.error(methodName + "方法出现异常! 异常信息为：" + throwable.getMessage());
         }
         logger.info("around：" + methodName + "方法执行完毕，出参：：" + JSONObject.toJSONString(proceed, SerializerFeature.WriteMapNullValue));
         return proceed;
