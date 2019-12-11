@@ -33,13 +33,31 @@ public class User extends Model<User> implements Serializable {
     @TableField(exist = false)
     private String fatherHeight;
 
+    //TODO 对于@Version注解和@TableLogic注解标识的属性，不能简单地当成实体类中的普通属性处理。分为以下两种情况：
+    //(1)没有配置对应的MybatisPlus插件(例如：实体类中添加了version属性，并且使用@Version注解标识该属性，但是没有配置乐观锁插件)
+    //   此时该属性和实体类中的其他普通属性相同。可以作为查询条件进行查询或者作为更新值进行更新。
+    //   user.setSex(2);
+    //   user.setVersion(oldVersion);
+    //   user.updateById(1);
+    //   --> UPDATE user SET user_sex=2, version = oldVersion WHERE id=1;
+    //
+    //   user.deletedById(1);
+    //   update user set deleted = 1 where id = 1 and deleted = 0;
+    //(2)配置了对应的MybatisPlus插件(例如：实体类中添加了version属性，并且使用@Version注解标识该属性，并且配置乐观锁插件)
+    //   此时该属性不能再像普通属性一样作为查询条件或者更新条件，而是由MybatisPlus对应的插件进行管理。
+    //   user.setSex(2);
+    //   user.setVersion(oldVersion);
+    //   user.updateById(1);
+    //   --> UPDATE user SET user_sex=2, version = oldVersion+1 WHERE id=1 and version = oldVersion;
+
+
     //乐观锁版本号，如果需要使用乐观锁插件，确保数据库中有此字段
     @Version
     private Integer version;
 
     //逻辑删除标记(0：未删除/1：删除)，如果需要使用逻辑删除，确保数据库中有此字段
-    //@TableLogic
-    //private Integer deleted;
+    @TableLogic
+    private Integer deleted;
 
 }
 

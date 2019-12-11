@@ -1,8 +1,6 @@
 package com.example.demo.MybatisPlus;
 
-import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
-import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
@@ -11,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.SqlExplainInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +25,13 @@ public class MybatisPlusConfiguration {
         return new PaginationInterceptor();
     }
 
+
     //配置Mybatis自定义的拦截器插件
     //@Bean
     public MybatisInterceptor mybatisInterceptor() {
         return new MybatisInterceptor();
     }
+
 
     //配置Mybatis阻断插件(用来阻断全表更新、删除的操作)
     //当配置此插件后，如果执行了全表更新、删除的操作，则会抛出异常。异常信息分别为：Prohibition of table update operation/Prohibition of full table deletion
@@ -44,6 +45,7 @@ public class MybatisPlusConfiguration {
         return sqlExplainInterceptor;
     }
 
+
     //配置Mybatis性能分析插件(该插件于3.2.0版本移除)
     //当配置此插件后，会输出每条SQL语句的执行时间。可以设置SQL语句允许的最大执行时长，如果超过此时长则会抛出异常。异常信息为：The SQL execution time is too large, please optimize ！
     //TODO 注意：该插件仅适用于开发环境，进行SQL语句的性能优化，不适用于生产环境。
@@ -56,6 +58,7 @@ public class MybatisPlusConfiguration {
         performanceInterceptor.setFormat(true);
         return performanceInterceptor;
     }
+
 
     //配置乐观锁插件
     //TODO 注意：乐观锁插件只支持 updateById(id) 与 update(entity, wrapper) 方法
@@ -95,7 +98,7 @@ public class MybatisPlusConfiguration {
      *
      *
      */
-    //@Bean
+    @Bean
     public OptimisticLockerInterceptor optimisticLockerInterceptor() {
         return new OptimisticLockerInterceptor();
     }
@@ -107,8 +110,9 @@ public class MybatisPlusConfiguration {
         return new MySqlInjector();
     }
 
+
     //配置自定义SQL填充器
-    //@Bean
+    @Bean
     public MyMetaObjectHandler myMetaObjectHandler(){
         return new MyMetaObjectHandler();
     }

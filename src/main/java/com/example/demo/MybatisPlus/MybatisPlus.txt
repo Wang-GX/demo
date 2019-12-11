@@ -89,6 +89,7 @@ Mybatis-Plus
 
 8. 逻辑删除插件
     使用逻辑删除后，调用MybatisPlus提供的delete相关api，不再执行delete语句，而是执行update语句对数据进行逻辑删除。
+    例如：UPDATE user SET deleted=1 WHERE id=1 AND deleted=0;
     调用MybatisPlus提供的select相关api，都会在对应的SQL语句后面加上deleted = 0的条件，即不再查找已经被逻辑删除的数据记录。
     使用方式：
         (1)实体类和数据表中分别添加deleted属性/字段(3.3.0+可以自定义逻辑删除属性/字段名)，实体类deleted属性上添加@TableLogic注解。
@@ -96,7 +97,7 @@ Mybatis-Plus
     注意：3.1.1+不需要配置bean，3.1.1-需要手动注入LogicSqlInjector(ISqlInjector的子类)到Spring的IOC容器中，由于SQL注入器也是ISqlInjector的子类并且也需要手动注入到Spring的IOC容器中，所以同时使用时可能会报错。因此建议使用3.1.1以上的版本。
 
 9. 通用枚举
-    个人感觉麻烦而且不太适用(略)
+    个人感觉麻烦而且不太适用(略)，如果需要统一定义常量，使用普通枚举即可。
 
 10. 代码生成器
     不太符合项目结构，检查需要耗费额外时间(略)

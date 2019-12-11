@@ -12,6 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * swagger-ui配置类
+ * 参考：https://blog.csdn.net/qq330983778/article/details/98665726
  */
 @Configuration
 @EnableSwagger2
@@ -30,7 +31,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("项目接口文档")
-                .description("项目接口文档描述：work and study")
+                .description("work and study")
                 .version("1.0")
                 .build();
     }
