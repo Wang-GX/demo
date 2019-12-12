@@ -1,5 +1,6 @@
 package com.example.demo.MybatisPlusTest;
 
+import com.example.demo.common.mapper.User1Mapper;
 import com.example.demo.common.mapper.UserMapper;
 import com.example.demo.common.pojo.User;
 import org.junit.jupiter.api.Test;
@@ -116,5 +117,22 @@ class MybatisPluginTest {
     void testLogicDelete(){
         int count = this.userMapper.deleteById(1);
         System.out.println("数据库受影响的行数为：" + count);
+    }
+
+    @Autowired
+    private User1Mapper user1Mapper;
+
+    /**
+     * 测试多数据源
+     */
+    @Test
+    void testMultipleDataSources(){
+        //查询数据库1连接的数据库中的数据
+        User user = userMapper.selectById(1);
+        System.out.println("user = " + user);
+
+        //查询数据源2连接的数据库中的数据
+        User user1 = user1Mapper.selectById(1);
+        System.out.println("user1 = " + user1);
     }
 }

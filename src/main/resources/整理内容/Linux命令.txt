@@ -35,3 +35,6 @@ distribution_detailed_flow：分销商品订单返佣记录表
     order_no：订单编号
     single_person_no：下单人编号
     parent_person_no：上级编号
+
+优惠券
+扣减顺序：顾问优惠-->优惠券-->健康币

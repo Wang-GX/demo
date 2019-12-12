@@ -6,3 +6,12 @@ select * from 表名 where TO_DAYS(NOW()) - TO_DAYS(create_date) > n
 select * from 表名 where TO_DAYS(NOW()) - TO_DAYS(create_date) < n
 #查询本月
 select * from 表名 where DATE_FORMAT(create_date,'%Y%m') - DATE_FORMAT(CURDATE(),'%Y%m') = 0
+
+
+跨库查询:
+(1) 项目中实现跨库查询：
+    ①通过其他项目的feign来调用对应接口进行查询。
+    ②通过配置多数据源实现。
+(2) 数据库中实现跨库查询：
+    可以直接通过一条SQL语句实现，例如：在数据库A下新建查询，但是要关联查询出数据库B中的数据，那么：
+        select a.字段1,b.字段2 from 表A left join `数据库名`.表B on 连接条件 where 查询条件;
