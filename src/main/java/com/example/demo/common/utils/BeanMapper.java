@@ -10,14 +10,14 @@ import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import ma.glasnost.orika.metadata.Type;
 import ma.glasnost.orika.metadata.TypeFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
- * 参考：https://www.cnblogs.com/jcjssl/p/9395091.html
+ * 参考(代码来源)：https://www.cnblogs.com/jcjssl/p/9395091.html
+ * 参考(常见Bean映射工具分析评测及Orika介绍)：https://www.jianshu.com/p/40e0e64797b9
  * <p>
  * 简单封装orika, 实现深度的BeanOfClassA<->BeanOfClassB复制
  * <p>
@@ -135,11 +135,14 @@ public class BeanMapper {
         userDTOList.add(userDTO2);
         log.info("源UserDTOList：" + JSONObject.toJSONString(userDTOList, SerializerFeature.WriteMapNullValue));
         //List<dto>->List<entity>
+        long start = System.currentTimeMillis();
         List<User> userList = BeanMapper.mapList(userDTOList, BeanMapper.getType(UserDTO.class), BeanMapper.getType(User.class));
+        long end = System.currentTimeMillis();
+        System.out.println("方法运行时间："+ (end - start));
         log.info("目标UserList：" + JSONObject.toJSONString(userList, SerializerFeature.WriteMapNullValue));
         //List<entity>->List<dto>
         log.info("回转目标UserDTOList：" + JSONObject.toJSONString(BeanMapper.mapList(userList, BeanMapper.getType(User.class), BeanMapper.getType(UserDTO.class)),SerializerFeature.WriteMapNullValue));
 
-
+        log.info("----------------------------------------------------------------SpringBeanUtils测试----------------------------------------------------------------");
     }
 }
