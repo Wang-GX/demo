@@ -15,3 +15,29 @@ select * from 表名 where DATE_FORMAT(create_date,'%Y%m') - DATE_FORMAT(CURDATE
 (2) 数据库中实现跨库查询：
     可以直接通过一条SQL语句实现，例如：在数据库A下新建查询，但是要关联查询出数据库B中的数据，那么：
         select a.字段1,b.字段2 from 表A left join `数据库名`.表B on 连接条件 where 查询条件;
+
+Exists关键字：
+    示例：
+	select * from student s where Exists(select * from class c where c.id = s.c_id)
+	说明：
+    #先执行外查询
+    #将外查询结果集中的数据记录逐一输入到exists子句中执行
+    #如果能够查到数据，则Exists()的结果为true，将外查询的这条结果输出。
+    #如果不能查到数据，则Exists()的结果为false，将外查询的这条结果废弃。
+
+
+group by关键字：
+    示例：select c_id as "班级编号",class.name as "班级名称",count(*) as "班级人数" from student left join class on class.id = student.c_id group by c_id;
+          班级编号  班级名称  班级人数
+          1		    二年一班  2
+          2	        二年二班  1
+    说明：根据指定字段对查询到的结果集(from表 & where条件)进行分组，默认只取每组第一条数据作为查询结果，所以查询到的数据意义不大，一般和聚合函数一起使用。
+
+having关键字：
+    示例：select c_id as "班级编号",class.name as "班级名称",count(*) as "班级人数" from student left join class on class.id = student.c_id group by c_id  having name ="二年一班";
+          班级编号  班级名称  班级人数
+          1		    二年一班  2
+    说明：对group by分组后得到的结果集再次进行过滤的到的结果。
+    参考：TODO MySQL查询语句的执行顺序：https://www.cnblogs.com/knowledgesea/p/4177830.html
+          from --> where --> group by --> having --> order by --> limit --> select
+          每一步都对应一张虚拟表

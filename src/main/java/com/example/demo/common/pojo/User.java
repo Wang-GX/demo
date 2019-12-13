@@ -2,6 +2,7 @@ package com.example.demo.common.pojo;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -19,13 +20,16 @@ import java.io.Serializable;
 public class User extends Model<User> implements Serializable {
     //可以点击IDEA左侧的Structure查看当前类的结构(属性，方法)
 
+    @ApiModelProperty(value = "主键id", name = "主键id")
     @TableId(value = "id", type = IdType.AUTO)//指定id类型为数据库自增长
     private Integer id;
-    //使用@TableId注解标识的属性，会被MybatisPlus使用在SQL语句中
+    @ApiModelProperty(value = "用户名", name = "用户名")
     @TableField(value = "user_name")
     private String userName;
+    @ApiModelProperty(value = "用户性别", name = "用户性别")
     @TableField(value = "user_sex", fill = FieldFill.INSERT)//调用MybatisPlus的api执行insert语句时触发该属性值的自动填充
     private String userSex;
+    @ApiModelProperty(value = "用户年龄", name = "用户年龄")
     @TableField("user_age")
     private String userAge;
     @TableField(exist = false)
