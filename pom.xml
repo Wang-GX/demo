@@ -97,8 +97,9 @@
         </dependency>
         <!--MybatisPlus代码生成器模板引擎-->
         <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.1</version>
         </dependency>
         <!--Druid数据库连接池-->
         <dependency>
