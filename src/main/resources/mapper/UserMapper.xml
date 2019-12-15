@@ -71,6 +71,35 @@
         </foreach>
     </select>
 
+    <resultMap id="resultMap1" type="com.example.demo.common.pojo.UserResultMap1" autoMapping="true">
+        <!--外层对象属性封装，开启autoMapping自动映射-->
+        <!--TODO 注意点1：所有id主键必须手动映射。 注意点2：必须开启所有autoMapping = true-->
+        <!--<id column="id" property="id"/>-->
+        <!--association：一对一关联对象属性-->
+        <association property="user" javaType="com.example.demo.common.pojo.User" autoMapping="true">
+            <!--内层对象属性封装，开启autoMapping自动映射-->
+            <!--<id column="user_id" property="id"></id>-->
+        </association>
+    </resultMap>
+
+    <select id="testResultMap1" resultMap="resultMap1">
+        select * from user where id = 1;
+    </select>
+
+    <resultMap id="resultMap2" type="com.example.demo.common.pojo.UserResultMap2" autoMapping="true">
+        <!--外层对象属性封装，开启autoMapping自动映射-->
+        <!--<id column="id" property="id"/>-->
+        <!--collection：一对多关联对象集合属性-->
+        <collection property="userList" javaType="java.util.List" ofType="com.example.demo.common.pojo.User" autoMapping="true">
+            <!--内层对象属性封装，开启autoMapping自动映射-->
+            <!--<id column="user_id" property="id"/>-->
+        </collection>
+    </resultMap>
+
+    <select id="testResultMap2" resultMap="resultMap2">
+        select * from user where id > 1;
+    </select>
+
 
     <!--resultMap标签-->
     <!--

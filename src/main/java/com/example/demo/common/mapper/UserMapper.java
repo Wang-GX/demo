@@ -3,6 +3,8 @@ package com.example.demo.common.mapper;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.example.demo.MybatisPlus.MyBaseMapper;
 import com.example.demo.common.pojo.User;
+import com.example.demo.common.pojo.UserResultMap1;
+import com.example.demo.common.pojo.UserResultMap2;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -25,6 +27,8 @@ public interface UserMapper extends MyBaseMapper<User> {
 
     List<User> testForEach(@Param("userAgeList")List<Integer> userAgeList);
 
-    User testResultMap();
+    UserResultMap1 testResultMap1();
+
+    UserResultMap2 testResultMap2();
 
 }
