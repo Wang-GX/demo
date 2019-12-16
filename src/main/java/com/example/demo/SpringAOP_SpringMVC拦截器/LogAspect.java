@@ -58,7 +58,7 @@ public class LogAspect {
         } catch (Throwable throwable) {
             logger.error(methodName + "方法出现异常! 异常信息为：" + throwable.getMessage());
         }
-        logger.info("around：" + methodName + "方法执行完毕，出参：：" + JSONObject.toJSONString(proceed, SerializerFeature.WriteMapNullValue));
+        logger.info("around：" + methodName + "方法执行完毕，出参：" + JSONObject.toJSONString(proceed, SerializerFeature.WriteMapNullValue));
         return proceed;
     }
 
