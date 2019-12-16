@@ -204,6 +204,7 @@
     </dependencies>
 
     <!--SpringBoot工程可执行jar包打包插件-->
+    <!--可执行jar包运行命令：java -jar 包名-->
     <!--为什么生成可执行jar而不是war包，参考：resources/整理内容/maven.txt-->
     <build>
         <plugins>

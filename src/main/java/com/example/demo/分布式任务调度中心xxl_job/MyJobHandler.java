@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * xxj-job处理器(Bean模式)
+ * xxj-job任务处理器(Bean模式)
  * <p>
  * 开发步骤：
  * 1、继承"IJobHandler"："com.xxl.job.core.handler.IJobHandler"。

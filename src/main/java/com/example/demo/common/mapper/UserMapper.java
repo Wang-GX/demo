@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-@DS("master")
+//@DS("slave_2")
 //@DS("slave_1")
 public interface UserMapper extends MyBaseMapper<User> {
 
