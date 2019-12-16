@@ -90,8 +90,8 @@ public class MybatisController {
     @ApiOperation(value = "测试resultMap(未完成!)")
     @PostMapping("resultMap")
     public void testResultMap() {
-        //UserResultMap1 userResultMap1 = this.mybatisService.testResultMap1();
-        //System.out.println("userResultMap1 = " + userResultMap1);
+        UserResultMap1 userResultMap1 = this.mybatisService.testResultMap1();
+        System.out.println("userResultMap1 = " + userResultMap1);
         List<UserResultMap2> userResultMap2s = this.mybatisService.testResultMap2();
         System.out.println(userResultMap2s.size());
         System.out.println("userResultMap2 = " + userResultMap2s);
