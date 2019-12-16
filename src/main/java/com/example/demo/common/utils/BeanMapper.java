@@ -135,14 +135,30 @@ public class BeanMapper {
         userDTOList.add(userDTO2);
         log.info("源UserDTOList：" + JSONObject.toJSONString(userDTOList, SerializerFeature.WriteMapNullValue));
         //List<dto>->List<entity>
-        long start = System.currentTimeMillis();
         List<User> userList = BeanMapper.mapList(userDTOList, BeanMapper.getType(UserDTO.class), BeanMapper.getType(User.class));
-        long end = System.currentTimeMillis();
-        System.out.println("方法运行时间："+ (end - start));
         log.info("目标UserList：" + JSONObject.toJSONString(userList, SerializerFeature.WriteMapNullValue));
         //List<entity>->List<dto>
-        log.info("回转目标UserDTOList：" + JSONObject.toJSONString(BeanMapper.mapList(userList, BeanMapper.getType(User.class), BeanMapper.getType(UserDTO.class)),SerializerFeature.WriteMapNullValue));
+        log.info("回转目标UserDTOList：" + JSONObject.toJSONString(BeanMapper.mapList(userList, BeanMapper.getType(User.class), BeanMapper.getType(UserDTO.class)), SerializerFeature.WriteMapNullValue));
 
-        log.info("----------------------------------------------------------------SpringBeanUtils测试----------------------------------------------------------------");
+        log.info("----------------------------------------------------------------性能测试----------------------------------------------------------------");
+
+        Type<UserDTO> typeUserDTO = BeanMapper.getType(UserDTO.class);
+        Type<User> typeUser = BeanMapper.getType(User.class);
+
+        long begin1 = System.currentTimeMillis();
+        for (int i = 0; i < 10000; i++) {
+            BeanMapper.map(userDTO, typeUserDTO, typeUser);
+        }
+        long end1 = System.currentTimeMillis();
+        log.info("对象转换时间：" + (end1 - begin1));
+
+        List<UserDTO> userDTOListPerformanceTest = new ArrayList<>();
+        for (int i = 0; i < 10000; i++) {
+            userDTOListPerformanceTest.add(userDTO);
+        }
+        long begin2 = System.currentTimeMillis();
+        BeanMapper.mapList(userDTOListPerformanceTest, typeUserDTO, typeUser);
+        long end2 = System.currentTimeMillis();
+        log.info("集合转换时间：" + (end2 - begin2));
     }
 }

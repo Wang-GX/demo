@@ -19,4 +19,5 @@ public class UserDTO extends User{
 
     //测试属性
     private String test;
+
 }

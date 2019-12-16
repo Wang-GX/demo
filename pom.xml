@@ -156,6 +156,12 @@
             <artifactId>guava</artifactId>
             <version>23.6-jre</version>
         </dependency>
+        <!--xxl-job分布式任务调度核心依赖-->
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>2.1.1</version>
+        </dependency>
         <!--easy-rules规则引擎-->
         <dependency>
             <groupId>org.jeasy</groupId>
@@ -167,16 +173,22 @@
             <artifactId>easy-rules-mvel</artifactId>
             <version>3.3.0</version>
         </dependency>
-        <!--日期时间工具类-->
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-        </dependency>
         <!--对象类型转换BeanMapper工具类所需依赖-->
         <dependency>
             <groupId>ma.glasnost.orika</groupId>
             <artifactId>orika-core</artifactId>
-            <version>1.4.5</version>
+            <version>1.5.4</version>
+        </dependency>
+        <!--拼音-->
+        <dependency>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        <!--日期时间工具类-->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
         </dependency>
         <!--Excel处理-->
         <dependency>
@@ -184,12 +196,7 @@
             <artifactId>easyexcel</artifactId>
             <version>1.1.2-beta5</version>
         </dependency>
-        <!--xxl-job分布式任务调度核心依赖-->
-        <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-core</artifactId>
-            <version>2.1.1</version>
-        </dependency>
+
 
 
         <!--zipkin链路监控-->

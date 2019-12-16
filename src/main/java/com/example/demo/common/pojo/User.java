@@ -15,7 +15,7 @@ import java.io.Serializable;
  * 下面这两个注解都将是在使用MybatisPlus代码生成器时自动生成的，可以认为是MybatisPlus的推荐配置，不需要过于纠结。
  */
 @EqualsAndHashCode(callSuper = false)//生成的hashCode和equals方法稍有差异，默认值为false
-@Accessors(chain = true)//调用set方法返回值为当前对象，方便链式调用设置属性值
+//@Accessors(chain = true)//调用set方法返回值为当前对象，方便链式调用设置属性值
 @TableName("user")
 public class User extends Model<User> implements Serializable {
     //可以点击IDEA左侧的Structure查看当前类的结构(属性，方法)
