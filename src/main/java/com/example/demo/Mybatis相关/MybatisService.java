@@ -1,6 +1,8 @@
 package com.example.demo.Mybatis相关;
 
 import com.example.demo.common.pojo.User;
+import com.example.demo.common.pojo.UserResultMap1;
+import com.example.demo.common.pojo.UserResultMap2;
 
 import java.util.List;
 
@@ -20,5 +22,7 @@ public interface MybatisService {
 
     List<User> testForEach(List<Integer> userAgeList);
 
-    User testResultMap();
+    UserResultMap1 testResultMap1();
+
+    UserResultMap2 testResultMap2();
 }

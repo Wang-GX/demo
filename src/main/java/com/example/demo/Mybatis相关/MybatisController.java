@@ -1,6 +1,8 @@
 package com.example.demo.Mybatis相关;
 
 import com.example.demo.common.pojo.User;
+import com.example.demo.common.pojo.UserResultMap1;
+import com.example.demo.common.pojo.UserResultMap2;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,8 +90,10 @@ public class MybatisController {
     @ApiOperation(value = "测试resultMap(未完成!)")
     @PostMapping("resultMap")
     public void testResultMap() {
-        User user = this.mybatisService.testResultMap();
-        System.out.println(user);
+//        UserResultMap1 userResultMap1 = this.mybatisService.testResultMap1();
+//        System.out.println("userResultMap1 = " + userResultMap1);
+        UserResultMap2 userResultMap2 = this.mybatisService.testResultMap2();
+        System.out.println("userResultMap2 = " + userResultMap2);
     }
 
 }

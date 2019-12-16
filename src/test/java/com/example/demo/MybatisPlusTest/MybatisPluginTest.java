@@ -1,6 +1,6 @@
 package com.example.demo.MybatisPlusTest;
 
-import com.example.demo.common.mapper.User1Mapper;
+import com.example.demo.common.mapper.UserMapper2;
 import com.example.demo.common.mapper.UserMapper;
 import com.example.demo.common.pojo.User;
 import org.junit.jupiter.api.Test;
@@ -120,7 +120,7 @@ class MybatisPluginTest {
     }
 
     @Autowired
-    private User1Mapper user1Mapper;
+    private UserMapper2 userMapper2;
 
     /**
      * 测试多数据源
@@ -132,7 +132,7 @@ class MybatisPluginTest {
         System.out.println("user = " + user);
 
         //查询数据源2连接的数据库中的数据
-        User user1 = user1Mapper.selectById(1);
+        User user1 = userMapper2.selectById(1);
         System.out.println("user1 = " + user1);
     }
 }

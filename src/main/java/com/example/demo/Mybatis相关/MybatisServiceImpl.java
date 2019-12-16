@@ -2,6 +2,8 @@ package com.example.demo.Mybatis相关;
 
 import com.example.demo.common.mapper.UserMapper;
 import com.example.demo.common.pojo.User;
+import com.example.demo.common.pojo.UserResultMap1;
+import com.example.demo.common.pojo.UserResultMap2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +60,12 @@ public class MybatisServiceImpl implements MybatisService {
     }
 
     @Override
-    public User testResultMap(){
-        return this.userMapper.testResultMap();
+    public UserResultMap1 testResultMap1(){
+        return this.userMapper.testResultMap1();
+    }
+
+    @Override
+    public UserResultMap2 testResultMap2(){
+        return this.userMapper.testResultMap2();
     }
 }
