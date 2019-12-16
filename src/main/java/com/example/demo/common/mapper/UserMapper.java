@@ -29,6 +29,6 @@ public interface UserMapper extends MyBaseMapper<User> {
 
     UserResultMap1 testResultMap1();
 
-    UserResultMap2 testResultMap2();
+    List<UserResultMap2> testResultMap2();
 
 }

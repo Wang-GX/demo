@@ -65,7 +65,7 @@ public class MybatisServiceImpl implements MybatisService {
     }
 
     @Override
-    public UserResultMap2 testResultMap2(){
+    public List<UserResultMap2> testResultMap2(){
         return this.userMapper.testResultMap2();
     }
 }
