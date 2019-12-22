@@ -28,9 +28,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 /**
  * SpringBoot整合单元测试：
  * (1) import org.junit.Test;
- *     @RunWith(SpringRunner.class)+@SpringBootTest(引导类名.class);
+ *     @RunWith(SpringRunner.class)+@SpringBootTest(引导类名.class); 引导类名可省略
  * (2) import org.junit.jupiter.api.Test;
- *     @SpringBootTest(引导类名.class);
+ *     @SpringBootTest(引导类名.class); 引导类名可省略
  */
 @Slf4j
 @RunWith(SpringRunner.class)
