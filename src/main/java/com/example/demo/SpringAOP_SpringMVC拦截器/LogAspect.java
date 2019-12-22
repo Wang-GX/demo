@@ -38,6 +38,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogAspect {
 
+    //声明一个String类型的变量，并与当前线程进行绑定，可以通过set和get方法设置和获取值，当前线程执行结束时，需要通过remove清除值。
+    private ThreadLocal<String> methodNameLocalThread = new ThreadLocal<>();
+
     private static Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
     //声明切入点(以方法为最小颗粒度)
@@ -50,15 +53,15 @@ public class LogAspect {
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint joinPoint) {
         //获取方法名
-        String methodName = joinPoint.getSignature().getName();
-        logger.info("around：" + methodName + "方法开始执行，入参：" + JSONObject.toJSONString(joinPoint.getArgs(), SerializerFeature.WriteMapNullValue));
+        methodNameLocalThread.set(joinPoint.getSignature().getName());
+        logger.info("around：" + methodNameLocalThread.get() + "方法开始执行，入参：" + JSONObject.toJSONString(joinPoint.getArgs(), SerializerFeature.WriteMapNullValue));
         Object proceed = null;
         try {
             proceed = joinPoint.proceed();
         } catch (Throwable throwable) {
-            logger.error(methodName + "方法出现异常! 异常信息为：" + throwable.getMessage());
+            logger.error(methodNameLocalThread.get() + "方法出现异常! 异常信息为：" + throwable.getMessage());
         }
-        logger.info("around：" + methodName + "方法执行完毕，出参：" + JSONObject.toJSONString(proceed, SerializerFeature.WriteMapNullValue));
+        logger.info("around：" + methodNameLocalThread.get() + "方法执行完毕，出参：" + JSONObject.toJSONString(proceed, SerializerFeature.WriteMapNullValue));
         return proceed;
     }
 
@@ -74,16 +77,18 @@ public class LogAspect {
         logger.info("after");
     }
 
-    @AfterReturning("pointcut()")
+    @AfterReturning(pointcut = "pointcut()",returning = "response")
     //返回通知：在切入点方法返回之后执行(可以理解为是回调)
-    public void afterReturning() {
-        logger.info("afterReturning");
+    public void afterReturning(Object response) {
+        logger.info("afterReturning" + response);
+        methodNameLocalThread.remove();
     }
 
-    @AfterThrowing("pointcut()")
+    @AfterThrowing(pointcut = "pointcut()",throwing = "ex")
     //异常通知：在切入点方法抛出异常时执行
-    public void afterThrowing() {
-        logger.info("afterThrowing");
+    public void afterThrowing(Throwable ex) {
+        logger.info("afterThrowing" + ex);
+        methodNameLocalThread.remove();
     }
 
 }
