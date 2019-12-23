@@ -46,7 +46,7 @@ class BaseMapperTest {
     private UserMapper userMapper;
 
     /**
-     * 根据id查询
+     * 根据id查询(查询结果可以为null)
      */
     @Test
     void testSelectById() {
@@ -67,7 +67,7 @@ class BaseMapperTest {
     }
 
     /**
-     * 根据条件查询一条数据(如果有多条数据符合查询条件则会报错)
+     * 根据条件查询一条数据(如果有多条数据符合查询条件则会报错，查询结果可以为null)
      */
     @Test
     void testSelectOne() {
