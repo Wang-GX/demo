@@ -72,6 +72,7 @@
     </select>
 
     <resultMap id="resultMap1" type="com.example.demo.common.pojo.UserResultMap1" autoMapping="true">
+        <!--TODO 开启字段和属性的自动映射，结果集中的字段被映射为同名属性，每一个id属性对应一个<association>。结果集中返回的的其他字段通过<association/>标签会被映射为User对象的属性-->
         <!--外层对象属性封装，开启autoMapping自动映射-->
         <!--TODO 注意点1：所有id主键必须手动映射。 注意点2：必须开启所有autoMapping = true-->
         <!--<id column="id" property="id"/>-->
@@ -89,6 +90,7 @@
     <resultMap id="resultMap2" type="com.example.demo.common.pojo.UserResultMap2" autoMapping="true">
         <!--外层对象属性封装，开启autoMapping自动映射-->
         <!--TODO 指定主键id属性，决定了返回对象的数量，如果这里指定的id字段为"id"，那么结果集中有多少列不同的id就会封装出多少个UserResultMap2对象，封装逻辑是从外到内封装，先封装出两个外层，再将其他字段的数据继续向内进行映射-->
+        <!--TODO 例如查询到的结果集如下所示，id只有两个值：1和2，mybatis将这些数据记录按照id分为两组，每一个id属性对应一个<collection/>。每组中的每条数据记录都会被映射为User对象再通过<collection/>标签映射到UserResultMap2的userList属性对应的集合中-->
         <!--
                                 id
 UserResultMap2   ——》 {         1	   1	 Wed Dec 11 17:42:19 AWST 2019	1	1	1	1	1	1
