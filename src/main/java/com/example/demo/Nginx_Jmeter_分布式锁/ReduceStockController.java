@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-@Controller
+//@Controller
 @RequestMapping("reduceStock")
 public class ReduceStockController {
 
