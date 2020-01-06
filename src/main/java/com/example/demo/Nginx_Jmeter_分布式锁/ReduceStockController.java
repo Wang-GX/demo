@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-//@Controller
-@RequestMapping("reduceStock")
+@Controller
+@RequestMapping("/reduceStock")
 public class ReduceStockController {
 
     @Autowired
@@ -21,10 +21,10 @@ public class ReduceStockController {
     @Autowired
     private Redisson redisson;
 
-    @GetMapping
+    @GetMapping("/reduceStock")
     public String reduceStock() {
 
-          String lockKey = "lockKey";
+          String lockKey = "lockKey";//TODO 这个是redis锁对应的key，如果需要使用不同的锁，则锁key也要随之改变(如SAAS系统的多租户场景)
 //        String clientId = UUID.randomUUID().toString();
 //
 //        Boolean result = redisTemplate.opsForValue().setIfAbsent(lockKey, clientId, 10, TimeUnit.SECONDS);//分布式锁1.0
