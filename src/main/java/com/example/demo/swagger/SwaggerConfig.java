@@ -13,6 +13,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * swagger-ui配置类
  * 参考：https://blog.csdn.net/qq330983778/article/details/98665726
+ * swagger项目访问地址：
+ *  http://localhost:8089/swagger-ui.html
+ *  http://localhost:8089/doc.html(需要额外引入swagger-bootstrap-ui依赖)
  */
 @Configuration
 @EnableSwagger2
