@@ -1,4 +1,4 @@
-package com.example.demo.Nginx_Jmeter_分布式锁;
+package com.example.demo.Nginx_JMeter_分布式锁;
 
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
@@ -11,6 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 测试结果：
+ * (1)不加任何锁，总库存200，0s内并发线程数200，剩余库存48，存在超卖。
+ * (2)使用原生Redis加锁，总库存200，0s内并发线程数200，剩余库存108(由于没有开启重试机制导致大量请求失败后直接返回)，没有超卖，锁有效，测试结果通过。
+ * (2)使用原生Redis加锁，总库存200，0s内并发线程数200，开启重试，重试次数30150次，剩余库存0，没有超卖，锁有效，测试结果通过。
+ * (3)使用Redisson加锁，总库存200，0s内并发线程数200，剩余库存0，没有超卖，锁有效，测试结果通过。
+ */
 @Controller
 @RequestMapping("/reduceStock")
 public class ReduceStockController {
@@ -24,13 +31,15 @@ public class ReduceStockController {
     @GetMapping("/reduceStock")
     public String reduceStock() {
 
-          String lockKey = "lockKey";//TODO 这个是redis锁对应的key，如果需要使用不同的锁，则锁key也要随之改变(如SAAS系统的多租户场景)
+        String lockKey = "lockKey";//TODO 这个是redis锁对应的key，如果需要使用不同的锁，则锁key也要随之改变(如SAAS系统的多租户场景)
 //        String clientId = UUID.randomUUID().toString();
 //
 //        Boolean result = redisTemplate.opsForValue().setIfAbsent(lockKey, clientId, 10, TimeUnit.SECONDS);//分布式锁1.0
 //        //在并发条件下，只有最早到达的线程才能执行成功，此时返回true。此时后续到达的线程都无法执行成功，此时返回false。
 //        //TODO redis是单线程模型，不管有多少个请求，redis都会按照到达的先后顺序对这些请求进行排队，然后依次执行。所以是同步的。
 //        if (!result) {
+//            System.out.println("获取锁失败，等待重试");
+//            reduceStock();
 //            return "error";//返回前端错误码或友好提示
 //        }
 
@@ -54,9 +63,9 @@ public class ReduceStockController {
             e.printStackTrace();
         } finally {
             lock.unlock();
-            /*if (clientId.equals(redisTemplate.opsForValue().get(lockKey))) {
-                redisTemplate.delete(lockKey);
-            }*/
+//            if (clientId.equals(redisTemplate.opsForValue().get(lockKey))) {
+//                redisTemplate.delete(lockKey);
+//            }
         }
 
         return "end";

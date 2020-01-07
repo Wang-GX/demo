@@ -1,10 +1,9 @@
-package com.example.demo.定时任务_分布式锁.乐观锁实现;
+package com.example.demo.定时任务_乐观锁.乐观锁实现;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.demo.common.mapper.UserMapper;
 import com.example.demo.common.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**

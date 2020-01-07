@@ -1,15 +1,31 @@
-nginx可以通过命令行来启动，操作命令：
+一.JMeter使用说明(可以通过Options -> Choose Language -> 中文)：
+1. Test Plan(右键) -> Add -> Threads(Users) -> Thread Group
+    Thread Properties：
+        (1)Number of Threads(users)：模拟请求线程数
+        (2)Ramp-up period(seconds)：请求总耗时(秒)
+           如果Ramp-up period 设置为0秒， JMeter 将立即建立所有线程。
+           假设Ramp-up period 设置成T秒，全部线程数设置成N个， JMeter 将每隔T/N秒建立一个线程，所有线程的建立时间总和为T秒。
+        (3)Loop Count：循环次数
+2. Thread Group(右键) -> Add -> Sampler -> Http Request
+    设置请求协议、服务器名称或IP、端口号、请求方式、请求路径等
 
+3. Http Request(右键) -> Add -> Listener -> Aggregate Report(汇总报告)
+
+3. 点击绿色箭头运行
+
+二. Nginx
+1. Nginx可以通过命令行来启动，操作命令：
 - 启动：start nginx.exe
 - 停止：nginx.exe -s stop
 - 重新加载：nginx.exe -s reload
+
+2. 配置文件 TODO
 
 redis命令参考：
 http://redisdoc.com/
 
 
-
-
+三.分布式锁
 分布式锁1.0：
 核心：SETNX key value：只在键key不存在的情况下，将键key的值设置为value。
 问题1：线程抛出异常，delete代码无法执行，后续线程永远执行不成功
@@ -39,3 +55,8 @@ TODO 方法在栈中执行，局部变量不共享
 底层一系列的1ua脚本，lua脚本是原子代码块，由redis保证是原子执行的，执行过程中不会被其他redis命令打断。
 问题：如果使用redis主从架构，主节点的键值会被同步到从节点。
       如果redis主节点宕机，当从节点被选取为新的主节点，如果此时锁还没有同步到从节点，那么后续线程仍然可以执行。
+
+
+TODO 注意对比这两种加锁方式，还有一个很重要的区别：
+使用原生的Redis加锁，如果加锁失败直接判定此次请求失败，那么在200个线程同时请求200个库存时，由于大量的线程请求失败，总库存最终一定是大于0的。
+而使用Redisson加锁，由于是默认是自旋锁，如果加锁失败则线程会继续尝试直到加锁成功(自旋锁获取锁一定会成功)，那么在200个线程同时请求200个库存时，总库存最终一定是等于0的。
