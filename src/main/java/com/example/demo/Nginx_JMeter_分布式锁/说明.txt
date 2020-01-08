@@ -7,11 +7,16 @@
            假设Ramp-up period 设置成T秒，全部线程数设置成N个， JMeter 将每隔T/N秒建立一个线程，所有线程的建立时间总和为T秒。
         (3)Loop Count：循环次数
 2. Thread Group(右键) -> Add -> Sampler -> Http Request
-    设置请求协议、服务器名称或IP、端口号、请求方式、请求路径等
+    设置请求协议、服务器名称或IP、端口号、请求方式、请求路径、编码(utf-8)
 
 3. Http Request(右键) -> Add -> Listener -> Aggregate Report(汇总报告)
 
 3. 点击绿色箭头运行
+
+如果需要发送json数据：
+    Http Request(右键) -> Config Element -> Http Header Manager -> Add：content-type:application/json
+
+
 
 二. Nginx
 1. Nginx可以通过命令行来启动，操作命令：
