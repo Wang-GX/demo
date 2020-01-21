@@ -19,7 +19,7 @@ public class MessageController {
 
     @ApiOperation(value = "消息发送：receive")
     @PostMapping("/receive")
-    public void send() {
+    public void send1() {
         messageSender.receive();
     }
 
@@ -27,6 +27,18 @@ public class MessageController {
     @PostMapping("/receiveBack")
     public void send2() {
         messageSender.receiveBack();
+    }
+
+    @ApiOperation(value = "消息发送：delayQueue")
+    @PostMapping("/delayQueue")
+    public void send3() {
+        messageSender.delay();
+    }
+
+    @ApiOperation(value = "消息发送：delayMsg")
+    @PostMapping("/delayMsg")
+    public void send4() {
+        messageSender.delayMsg();
     }
 
 }

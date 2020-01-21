@@ -14,7 +14,7 @@ import java.io.IOException;
 @Slf4j
 public class MessageHandler {
 
-    //@RabbitListener(queues = MQConfig.QUEUE_RECEIVE)
+    @RabbitListener(queues = MQConfig.QUEUE_RECEIVE)
     //消费者的参数类型必须要与生产者发送的消息类型一致
     //convertAndSend方法的可发送消息的类型为Object
     public void receive(Message message, Channel channel) throws IOException {
@@ -35,7 +35,7 @@ public class MessageHandler {
         }
     }
 
-    //@RabbitListener(queues = MQConfig.QUEUE_RECEIVE_BACK)
+    @RabbitListener(queues = MQConfig.QUEUE_RECEIVE_BACK)
     public void receiveBack(Message message, Channel channel) throws IOException {
 
         //获取消息(在RabbitMQ队列中的)索引
@@ -70,6 +70,20 @@ public class MessageHandler {
 
             //消费者否认消息：该方法可以批量否认
             //multiple(参数2)：是否批量，requeue(参数3)：被拒绝的消息是否重新投递到队列(同上)。
+            channel.basicNack(deliveryTag, true, false);
+        }
+    }
+
+    @RabbitListener(queues = MQDelayQueueConfig.DELAY_QUEUE)
+    public void delay(Message message, Channel channel) throws IOException {
+        //获取消息(在RabbitMQ队列中的)索引
+        long deliveryTag = message.getMessageProperties().getDeliveryTag();
+        try {
+            String payload = new String(message.getBody());
+            System.out.println("已接收来自死信队列的延迟消息：" + payload);
+            channel.basicAck(deliveryTag, true);
+        } catch (Exception e) {
+            e.printStackTrace();
             channel.basicNack(deliveryTag, true, false);
         }
     }

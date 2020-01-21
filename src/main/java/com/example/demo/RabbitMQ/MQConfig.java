@@ -1,11 +1,11 @@
 package com.example.demo.RabbitMQ;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class MQConfig {
@@ -18,21 +18,25 @@ public class MQConfig {
      * 绑定关系可以在配置类中完成(个人觉得这种方式更清晰)，也可以在定义生产者或者消费者时通过注解完成。
      */
 
-    //队列
-    public static final String QUEUE_RECEIVE = "RECEIVE";
-    public static final String QUEUE_RECEIVE_BACK = "RECEIVE_BACK";
     //交换机
     public static final String EXCHANGE = "EXCHANGE";
+
+    //队列
+    public static final String QUEUE_RECEIVE = "QUEUE_RECEIVE";
+    public static final String QUEUE_RECEIVE_BACK = "QUEUE_RECEIVE_BACK";
+
     //routingKey
     public static final String routingKey_RECEIVE = "RECEIVE";
     public static final String routingKey_RECEIVE_BACK = "RECEIVE_BACK";
 
 
+
     /**
      * 声明交换机(Direct模式)
+     *
      * @return
      */
-    @Bean
+    @Bean("exchange")
     public DirectExchange exchangeDirect() {
         //durable：持久化交换机
         //autoDelete：表示当所有绑定到此交换机的队列都不再使用时，是否自动删除此交换机
@@ -44,9 +48,10 @@ public class MQConfig {
 
     /**
      * 声明队列
+     *
      * @return
      */
-    @Bean("receive")
+    @Bean("receiveQueue")
     public Queue queueReceive() {
         //durable：持久化队列
         /*
@@ -57,16 +62,16 @@ public class MQConfig {
         其三，即使该队列是持久化的，一旦连接关闭或者客户端退出，该排他队列都会被自动删除的。这种队列适用于只限于一个客户端发送读取消息的应用场景。
         */
         //autoDelete：表示当没有消费者端监听此队列时，是否自动删除此队列
-        Queue queue = new Queue(QUEUE_RECEIVE, true,false,false);
+        Queue queue = new Queue(QUEUE_RECEIVE, true, false, false);
         //设置忽略声明异常(避免创建重复队列以及创建异常的时候启动异常)
         queue.setIgnoreDeclarationExceptions(true);
         return queue;
     }
 
-    @Bean("receiveBack")
+    @Bean("receiveBackQueue")
     public Queue queueReceiveBack() {
         //队列持久化
-        Queue queue = new Queue(QUEUE_RECEIVE_BACK, true,false,false);
+        Queue queue = new Queue(QUEUE_RECEIVE_BACK, true, false, false);
         //设置忽略声明异常(避免创建重复队列以及创建异常的时候启动异常)
         queue.setIgnoreDeclarationExceptions(true);
         return queue;
@@ -74,6 +79,7 @@ public class MQConfig {
 
     /**
      * 队列绑定交换机(Direct模式的绑定：需要routingKey)
+     *
      * @return
      */
     @Bean
@@ -87,13 +93,13 @@ public class MQConfig {
         return BindingBuilder.bind(queueReceiveBack()).to(exchangeDirect()).with(routingKey_RECEIVE_BACK);
     }
 
-/*
+    /*
 
-    */
+     */
 /**
-     * 声明交换机(Fanout模式)
-     * @return
-     *//*
+ * 声明交换机(Fanout模式)
+ * @return
+ *//*
 
     @Bean
     public FanoutExchange exchangeFanout() {
@@ -103,9 +109,9 @@ public class MQConfig {
 
     */
 /**
-     * 队列绑定交换机(Fanout模式的绑定：不需要routingKey)
-     * @return
-     *//*
+ * 队列绑定交换机(Fanout模式的绑定：不需要routingKey)
+ * @return
+ *//*
 
     @Bean
     public Binding bindingReceive() {
@@ -113,5 +119,4 @@ public class MQConfig {
     }
 
 */
-
 }

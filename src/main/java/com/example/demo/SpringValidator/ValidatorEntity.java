@@ -21,7 +21,7 @@ import java.util.List;
  *  	"userName": "张三"
  *  }
  */
-@ApiModel("SpringValidated测试实体类")
+@ApiModel("SpringValidator测试实体类")
 @Data
 public class ValidatorEntity {
 

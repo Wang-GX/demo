@@ -76,6 +76,30 @@ public class MessageSender {
 
     }
 
+    /**
+     * 延迟队列测试
+     */
+    public void delay() {
+        //构建延迟消息
+        String msg = "延迟消息";
+        Message message = new Message(msg.getBytes(), new MessageProperties());
+        rabbitTemplate.convertAndSend(MQConfig.EXCHANGE, MQDelayQueueConfig.routingKey_DELAY, message);
+        System.out.println("已向交换机发送延迟消息：" + msg + "(TTL：" + MQDelayQueueConfig.DELAY_QUEUE_TTL + ")");
+    }
+
+    /**
+     * 延迟消息测试
+     */
+    public void delayMsg() {
+        //构建延迟消息
+        String msg = "延迟消息";
+        MessageProperties messageProperties = new MessageProperties();
+        messageProperties.setExpiration("1000");//手动设置消息的过期时间(取最小的TTL，参考txt文件)
+        Message message = new Message(msg.getBytes(), messageProperties);
+        rabbitTemplate.convertAndSend(MQConfig.EXCHANGE, MQDelayQueueConfig.routingKey_DELAY, message);
+        System.out.println("已向交换机发送延迟消息：" + msg + "(TTL：" + 1000 + ")");
+    }
+
     //声明回调函数: 生产者确认(confirm)
     //生产者投递消息后，等待RabbitMQ的ACK(确认回调)。如果没有收到或者收到失败信息，则重试。如果收到成功消息则生产者业务结束。
     private final RabbitTemplate.ConfirmCallback confirmCallback = new RabbitTemplate.ConfirmCallback() {
