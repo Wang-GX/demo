@@ -29,7 +29,7 @@ public class DefaultConfig {
     @Value("${user.age}")
     private String userAge;
 
-    //TODO 通过前缀+属性名注入，设置的属性必须要有set方法!!!(这里指的是配置类)，通过调用set方法注入father.name属性值
+    //TODO 通过前缀+属性名注入，设置的属性必须要有set方法!!!(这里指的是配置类)，通过调用set方法注入name属性值
     private String name;
 
     /*public String getName() {

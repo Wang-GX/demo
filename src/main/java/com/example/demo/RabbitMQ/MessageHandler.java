@@ -74,7 +74,7 @@ public class MessageHandler {
         }
     }
 
-    @RabbitListener(queues = MQDelayQueueConfig.DELAY_QUEUE)
+    @RabbitListener(queues = MQDelayQueueConfig.DEAD_LETTER_QUEUE)
     public void delay(Message message, Channel channel) throws IOException {
         //获取消息(在RabbitMQ队列中的)索引
         long deliveryTag = message.getMessageProperties().getDeliveryTag();
