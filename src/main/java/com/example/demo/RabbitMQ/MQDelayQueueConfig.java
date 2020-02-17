@@ -33,7 +33,7 @@ public class MQDelayQueueConfig {
 
     /**
      * 声明延迟队列
-     *
+     * 设置延迟队列中的消息要推送到的死信交换机
      * @return
      */
     @Bean("delayQueue")
@@ -41,7 +41,8 @@ public class MQDelayQueueConfig {
         Map<String, Object> arguments = new HashMap<>();
         arguments.put("x-message-ttl", DELAY_QUEUE_TTL);//设置延迟队列消息的过期时间(毫秒)，过期的消息会被发送到绑定的死信交换机(必须)
         arguments.put("x-dead-letter-exchange", DEAD_LETTER_EXCHANGE);//设置死信交换机(必须)
-        arguments.put("x-dead-letter-routing-key", routingKey_DEAD_LETTER);//设置发送到死信队列的消息的routingKey，当消息从延迟队列发送到死信交换机时，会重置消息的routingKey为此处设置的值(必须)
+        //可选设置：设置发送到死信队列的消息的routingKey，当消息从延迟队列发送到死信交换机时，会重置消息的routingKey为此处设置的值。如果不设置，则保持消息原来的routingKey不变。
+        arguments.put("x-dead-letter-routing-key", routingKey_DEAD_LETTER);
         Queue queue = new Queue(DELAY_QUEUE, true, false, false, arguments);
         queue.setIgnoreDeclarationExceptions(true);
         return queue;
@@ -85,5 +86,6 @@ public class MQDelayQueueConfig {
     @Bean
     public Binding bindingDeadLetterQueue() {
         return BindingBuilder.bind(deadLetterQueue()).to(deadLetterExchange()).with(routingKey_DEAD_LETTER);
+        //return BindingBuilder.bind(deadLetterQueue()).to(deadLetterExchange()).with(routingKey_DELAY);//如果不重新设置routingKey，则保持消息原来的routingKey不变。
     }
 }
