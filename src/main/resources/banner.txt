@@ -2,6 +2,7 @@ ${AnsiColor.WHITE}
                   瑶宫寂寞锁千秋，九天御风只影游。不如笑归红尘去，共我飞花携满袖。
                         如果我的快乐不是因为你，那么我的难过也一定与你无关。
                                     距离不是问题，距离感才是。
+                             无愧于心，无愧于情。偶尔怀念，不报期待。
          ">bad/bbda"};static int S(){return(o[p][q]);}static/**/int/**/Z=0  ;void/**/z(int//        
         l){if(/**/Z-l){Z=l;q++;if(p<b*5&&!S()){p+=b;q=0;}}}int main(int I,    /**/char**l){//       
        d=sizeof(f*);if(1<(O=_)){b=((sizeof(o)/sizeof(char*))-1)/4;q=22; p=     0;while(p<b*5){      
