@@ -12,6 +12,7 @@ import javax.validation.Valid;
 public class SpringValidatorController {
 
     @PostMapping("testValidated")
+    //注意：在对象参数前要添加@Valid注解，否则Validate相关注解不能生效
     public void testValidated(@RequestBody @Valid ValidatorEntity validatedTestEntity) {
         System.out.println(validatedTestEntity);
     }

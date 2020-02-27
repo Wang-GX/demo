@@ -29,7 +29,7 @@ public class MQDelayQueueConfig {
     public static final String routingKey_DEAD_LETTER = "DEAD_LETTER";
 
     //延迟队列TTL
-    public static final int DELAY_QUEUE_TTL = 3000;
+    public static final int DELAY_QUEUE_TTL = 10000;
 
     /**
      * 声明延迟队列
