@@ -1,11 +1,18 @@
 package com.example.demo.多线程_本地线程锁_线程池;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.*;
 
+/**
+ * 我们有两种常见的创建线程的方法，一种是继承Thread类，一种是实现Runnable的接口，Thread类其实也是实现了Runnable接口。
+ * 但是我们创建这两种线程在运行结束后都会被虚拟机销毁，如果线程数量多的话，频繁的创建和销毁线程会大大浪费时间和效率，更重要的是浪费内存，因为正常来说线程执行完毕后死亡，线程对象变成垃圾。
+ * 使用线程池可以让线程在执行完成任务后不立即被销毁，而是可以重复使用。
+ */
 @Service
+@Slf4j
 public class LocalLockService {
 
     /**
@@ -19,31 +26,31 @@ public class LocalLockService {
         /**
          *  线程池的7个核心参数：
          *
-         *  int corePoolSize,  　　　　　　　　　　　　　　//核心池的大小。
-         *  int maximumPoolSize,　　                  //池中允许的最大线程数，这个参数表示了线程池中最多能创建的线程数量
-         *  long keepAliveTime,　　　　　　　　　　     //当线程数大于corePoolSize时，终止前多余的空闲线程等待新任务的最长时间
+         *  int corePoolSize,  　　　　　　　　　　　　　　//核心线程池的大小
+         *  int maximumPoolSize,　　                  //线程池能创建最大的线程数量
+         *  long keepAliveTime,　　　　　　　　　　     //非核心线程空闲时的最长存活时间
          *  TimeUnit unit,　　　　　　　　　　　　　    //keepAliveTime时间单位
-         *  BlockingQueue<Runnable> workQueue,    //存储还没来得及执行的任务
+         *  BlockingQueue<Runnable> workQueue,    //缓存队列，用来存放等待被执行的任务
          *  ThreadFactory threadFactory,　　　　  //执行程序创建新线程时使用的工厂
-         *  RejectedExecutionHandler handler   //由于超出线程范围和队列容量而使执行被阻塞时所使用的处理程序
+         *  RejectedExecutionHandler handler   //线程池中的创建的线程数量已经达到最大并且缓存队列已满时
          */
 
         /**
          * corePoolSize与maximumPoolSize举例理解
          *
-         * 1、池中线程数小于corePoolSize，新任务都不排队而是直接添加新线程
+         * 1、池中线程数小于corePoolSize，新的任务会创建新的线程执行，线程执行完毕进入线程缓存队列，等待再次执行
          * 2、池中线程数大于等于corePoolSize，workQueue未满，首选将新任务加入workQueue而不是添加新线程
          * 3、池中线程数大于等于corePoolSize，workQueue已满，但是线程数小于maximumPoolSize，添加新的线程来处理被添加的任务
-         * 4、池中线程数大于大于corePoolSize，workQueue已满，并且线程数大于等于maximumPoolSize，新任务被拒绝，使用handler处理被拒绝的任务
+         * 4、池中线程数大于等于corePoolSize，workQueue已满，并且线程数等于maximumPoolSize，新任务被拒绝，使用handler处理被拒绝的任务
          */
 
         ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("线程%d").build();
-        ExecutorService singleThreadPool = new ThreadPoolExecutor(
+        ThreadPoolExecutor singleThreadPool = new ThreadPoolExecutor(
                 5,
                 10,
                 0L,
                 TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<Runnable>(1024),
+                new LinkedBlockingQueue<Runnable>(5),//缓存队列的最大容量
                 namedThreadFactory,
                 new ThreadPoolExecutor.AbortPolicy()
         );
@@ -51,8 +58,17 @@ public class LocalLockService {
         //创建线程任务
         Work work = new Work();
         //线程执行线程任务
-        singleThreadPool.execute(work);
-        singleThreadPool.execute(work);
+
+        for(int i = 0; i < 16; i++) {
+            //手动将任务执行时间延长4s演示效果
+            Work task = new Work();
+            singleThreadPool.execute(task);
+            System.out.println(
+                    "线程池中线程数目：" + singleThreadPool.getPoolSize() +
+                    "，队列中等待执行的任务数目："+ singleThreadPool.getQueue().size() +
+                    "，已执行完成的任务数目：" + singleThreadPool.getCompletedTaskCount());
+        }
+
         //关闭线程池
         singleThreadPool.shutdown();
 
@@ -62,7 +78,7 @@ public class LocalLockService {
 
 class Work implements Runnable {
 
-    private int ticket = 100;
+    private int ticket = 10000;
 
     @Override
     public void run() {
@@ -70,7 +86,7 @@ class Work implements Runnable {
             synchronized (Lock.getLock()) {
                 if (this.ticket > 0) {
                     try {
-                        Thread.sleep(1000);//sleep方法不释放锁
+                        Thread.sleep(4000);//sleep方法不释放锁
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
