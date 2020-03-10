@@ -92,7 +92,7 @@
         <!--TODO 指定主键id属性，决定了返回对象的数量，如果这里指定的id字段为"id"，那么结果集中有多少列不同的id就会封装出多少个UserResultMap2对象，封装逻辑是从外到内封装，先封装出两个外层，再将其他字段的数据继续向内进行映射-->
         <!--TODO 例如查询到的结果集如下所示，id只有两个值：1和2，mybatis将这些数据记录按照id分为两组，每一个id属性对应一个<collection/>。每组中的每条数据记录都会被映射为User对象再通过<collection/>标签映射到UserResultMap2的userList属性对应的集合中-->
         <!--
-                                id
+                                id    id1
 UserResultMap2   ——》 {         1	   1	 Wed Dec 11 17:42:19 AWST 2019	1	1	1	1	1	1
                         {         1	   212	 Wed Dec 11 17:44:42 AWST 2019	1	1	1	1	1	212
                         {         1	   213	 Wed Dec 11 17:59:32 AWST 2019	1	1	1	1	1	213
@@ -106,18 +106,18 @@ UserResultMap2   ——》 {         1	   1	 Wed Dec 11 17:42:19 AWST 2019	1	1	1
                         {         1	   221	 Mon Dec 16 16:59:20 AWST 2019	1	1	1	1	1	221
                         {         1	   222	 Mon Dec 16 16:59:21 AWST 2019	1	1	1	1	1	222
                         {         1	   223	 Mon Dec 16 16:59:22 AWST 2019	1	1	1	1	1	223
-UserResultMap2   ——》{       2	224	Mon Dec 16 16:59:23 AWST 2019	1	1	1	1	2	224
-         {       2	225	Mon Dec 16 16:59:24 AWST 2019	1	1	1	1	2	225
-         {       2	226	Mon Dec 16 16:59:25 AWST 2019	1	1	1	1	2	226
-         {       2	227	Mon Dec 16 16:59:26 AWST 2019	1	1	1	1	2	227
-         {       2	228	Mon Dec 16 16:59:27 AWST 2019	1	1	1	1	2	228
-         {       2	229	Mon Dec 16 16:59:28 AWST 2019	1	1	1	1	2	229
-         {       2	230	Mon Dec 16 16:59:29 AWST 2019	1	1	1	1	2	230
-         {       2	231	Mon Dec 16 16:59:30 AWST 2019	1	1	1	1	2	231
-         {       2	232	Mon Dec 16 16:59:31 AWST 2019	1	1	1	1	2	232
-         {       2	233	Mon Dec 16 16:59:32 AWST 2019	1	1	1	1	2	233
-         {       2	234	Mon Dec 16 16:59:33 AWST 2019	1	1	1	1	2	234
-         {       2	235	Mon Dec 16 16:59:34 AWST 2019	1	1	1	1	2	235
+UserResultMap2   ——》 {         2	   224	 Mon Dec 16 16:59:23 AWST 2019	1	1	1	1	2	224
+                        {         2	   225	 Mon Dec 16 16:59:24 AWST 2019	1	1	1	1	2	225
+                        {         2	   226	 Mon Dec 16 16:59:25 AWST 2019	1	1	1	1	2	226
+                        {         2	   227	 Mon Dec 16 16:59:26 AWST 2019	1	1	1	1	2	227
+                        {         2	   228	 Mon Dec 16 16:59:27 AWST 2019	1	1	1	1	2	228
+                        {         2	   229	 Mon Dec 16 16:59:28 AWST 2019	1	1	1	1	2	229
+                        {         2	   230	 Mon Dec 16 16:59:29 AWST 2019	1	1	1	1	2	230
+                        {         2	   231	 Mon Dec 16 16:59:30 AWST 2019	1	1	1	1	2	231
+                        {         2	   232	 Mon Dec 16 16:59:31 AWST 2019	1	1	1	1	2	232
+                        {         2	   233	 Mon Dec 16 16:59:32 AWST 2019	1	1	1	1	2	233
+                        {         2	   234	 Mon Dec 16 16:59:33 AWST 2019	1	1	1	1	2	234
+                        {         2	   235	 Mon Dec 16 16:59:34 AWST 2019	1	1	1	1	2	235
 
 
         -->
@@ -125,7 +125,7 @@ UserResultMap2   ——》{       2	224	Mon Dec 16 16:59:23 AWST 2019	1	1	1	1	2	
         <!--collection：一对多关联对象集合属性-->
         <collection property="userList" javaType="java.util.List" ofType="com.example.demo.common.pojo.User" autoMapping="true">
             <!--内层对象属性封装，开启autoMapping自动映射-->
-            <id column="id" property="id"/>
+            <id column="uid" property="id"/>
         </collection>
     </resultMap>
 
