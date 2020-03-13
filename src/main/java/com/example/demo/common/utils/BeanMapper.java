@@ -2,6 +2,8 @@ package com.example.demo.common.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.example.demo.common.pojo.OrikaDiffDTO1;
+import com.example.demo.common.pojo.OrikaDiffDTO2;
 import com.example.demo.common.pojo.User;
 import com.example.demo.common.pojo.UserDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -160,5 +162,13 @@ public class BeanMapper {
         BeanMapper.mapList(userDTOListPerformanceTest, typeUserDTO, typeUser);
         long end2 = System.currentTimeMillis();
         log.info("集合转换时间：" + (end2 - begin2));
+
+        log.info("----------------------------------------------------------------指定不同名字段的映射规则----------------------------------------------------------------");
+        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        mapperFactory.classMap(OrikaDiffDTO1.class, OrikaDiffDTO2.class).field("name1", "name2").field("age1", "age2").byDefault().register();
+        //TODO 注意，使用自定义字段映射器时，需要调用byDefault方法。否则只有field方法声明的字段才能映射成功，同名同类型的字段无法映射成功。
+        OrikaDiffDTO2 orikaDiffDTO2 = mapperFactory.getMapperFacade().map(new OrikaDiffDTO1().setName1("张三").setAge1(18).setSex(2), OrikaDiffDTO2.class);
+        log.info(JSONObject.toJSONString(orikaDiffDTO2, SerializerFeature.WriteMapNullValue));
+
     }
 }
