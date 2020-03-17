@@ -240,6 +240,8 @@ delete操作。
 update操作。
 delete + insert操作的组合。delete的行(旧的数据行)对应delete操作，insert的行(新的数据行)对应insert操作
 
+//TODO 网上流传很多的，【隐藏的两列，创建版本号和删除版本号】不完全正确(参考下面的地址，正确性较高)
+https://blog.csdn.net/c5113620/article/details/103646595
 
 如何解决幻读(待)
 很明显可重复读的隔离级别没有办法彻底的解决幻读的问题，如果我们的项目中需要解决幻读的话也有两个办法：
