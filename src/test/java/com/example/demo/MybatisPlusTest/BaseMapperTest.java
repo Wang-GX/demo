@@ -216,6 +216,8 @@ class BaseMapperTest {
 
     /**
      * 根据id更新
+     * 只会更新设置值的字段
+     * 如果是通过select查询出来的数据，修改了某个字段的值后作为该方法的参数，那么有值的字段都会被重新update
      */
     @Test
     void testUpdateById() {
@@ -228,6 +230,8 @@ class BaseMapperTest {
 
     /**
      * 根据条件更新
+     * 只会更新指定字段的值
+     * 如果是通过select查询出来的数据，修改了某个字段的值后作为该方法的参数，那么有值的字段都会被重新update
      */
     @Test
     void testUpdateByCondition() {
