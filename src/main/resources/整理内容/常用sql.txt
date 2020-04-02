@@ -53,3 +53,17 @@ having关键字：
           from --> where --> group by --> having --> order by --> limit --> select
           每一步都对应一张虚拟表
 
+
+and & or关键字：
+   结果集中的数据记录必须同时满足and关键字连接的两个运算，and连接的两个运算可以在外面加上括号并且看做一个整体的运算
+   结果集中的数据记录只需要满足任意一个or关键字连接的两个运算
+   括号括起来的看做一个整体的运算
+
+   示例：
+        select * from employee where sex = '男' and name = '张三' or name = '李四';  ==  select * from employee where (sex = '男' and name = '张三') or name = '李四';
+        查询出所有姓名为张三的男性或者姓名为李四的男性/女性
+
+        select * from employee where sex = '男' and (name = '张三' or name = '李四');
+        查询出所有姓名为张三的男性或者姓名为李四的男性
+
+
