@@ -33,4 +33,5 @@ ${AnsiColor.WHITE}
        for(;   p<I   ;p++)fwrite(P[p] .q,P[              p].o,1,t);return 0 ;}//                    
       #/*]     ]<.    [-]<[-]<[- ]<[    -]<               [-  ]<;*/elif  e    //b                   
      |(1        <<     ( __LINE__        /*               >>   `*//45))  |     01U                  
-                 #                       /*               */     endif            //                 
+                 #                       /*               */     endif            //
+https://blog.csdn.net/v123411739/article/details/71437307?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task
