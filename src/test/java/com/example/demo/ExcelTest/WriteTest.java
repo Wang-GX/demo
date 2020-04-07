@@ -9,6 +9,7 @@ import java.util.*;
 
 /**
  * 写的常见写法
+ * 数据库 -> 内存 -> 输出到excel文件
  *
  * @author Jiaju Zhuang
  */
