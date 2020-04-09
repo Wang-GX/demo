@@ -1,6 +1,9 @@
 package com.example.demo.ExcelTest;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelReader;
+import com.alibaba.excel.read.metadata.ReadSheet;
+import com.alibaba.excel.write.metadata.WriteSheet;
 import com.example.demo.Excel.DemoData;
 import com.example.demo.Excel.DemoDataListener;
 import com.example.demo.common.mapper.ExcelMapper;
@@ -19,7 +22,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class ReadTest {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ReadTest.class);
+
+    private static final String fileName = System.getProperty("user.dir") + "/src/main/resources/" + "ReadDemoExcel" + ".xlsx";
 
     @Autowired
     private ExcelMapper excelMapper;
@@ -35,13 +41,32 @@ public class ReadTest {
      */
     @Test
     public void simpleRead() {
-        // 有个很重要的点 DemoDataListener 不能被spring管理，要每次读取excel都要new,然后里面用到spring可以构造方法传进去
-        //指定文件读取路径
-        String fileName = System.getProperty("user.dir") + "/src/main/resources/" + "demo" + ".xlsx";
-        // 这里 需要指定读用哪个class去读，然后读取第一个sheet 文件流会自动关闭
-        EasyExcel.read(fileName, DemoData.class, new DemoDataListener(this.excelMapper)).sheet().doRead();
+        //有个很重要的点 DemoDataListener 不能被spring管理，要每次读取excel都要new,然后里面用到spring可以构造方法传进去
+        //这里需要指定读用哪个class去读，选择要读取的sheet，文件流会自动关闭
+        //注意：sheet的索引和名字要对应上，否则可能读取到多个sheet的数据(例如：索引0 + 索引1的名字)
+        EasyExcel.read(fileName, DemoData.class, new DemoDataListener(this.excelMapper)).sheet(0, "模板1").doRead();
     }
 
+    /**
+     * 读取多个sheet
+     * 需要手动关闭流
+     */
+    @Test
+    public void multipleSheetRead() {
+        ExcelReader excelReader = EasyExcel.read(fileName).build();
+        ReadSheet readSheet1 = EasyExcel.readSheet(0, "模板1").head(DemoData.class).registerReadListener(new DemoDataListener(this.excelMapper)).build();
+        ReadSheet readSheet2 = EasyExcel.readSheet(1, "模板2").head(DemoData.class).registerReadListener(new DemoDataListener(this.excelMapper)).build();
+        excelReader.read(readSheet1, readSheet2);//该方法有多种简单的重载形式，可以选择使用
+        excelReader.finish();
+    }
+
+    /**
+     * 读取全部sheet
+     */
+    @Test
+    public void allSheetRead() {
+        EasyExcel.read(fileName, DemoData.class, new DemoDataListener(this.excelMapper)).build().readAll();
+    }
 
 }
 

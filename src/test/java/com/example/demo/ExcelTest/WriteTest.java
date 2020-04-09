@@ -1,6 +1,11 @@
 package com.example.demo.ExcelTest;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.EasyExcelFactory;
+import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.metadata.Sheet;
+import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
+import com.alibaba.excel.write.metadata.WriteSheet;
 import com.example.demo.Excel.DemoData;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -53,10 +58,53 @@ public class WriteTest {
         includeColumnFiledNames.add("date");
 
         //4.写数据
-        EasyExcel.write(fileName, DemoData.class).sheet("模板").doWrite(dataList);//数据列表
+        //方式1：使用ExcelWriterSheetBuilder的doWrite方法(使用这种方式不需要手动关闭流，这种方式通常用于单一sheet的写)
+        EasyExcel.write(fileName, DemoData.class).sheet(0,"模板").doWrite(dataList);
         //EasyExcel.write(fileName, DemoData.class).excludeColumnFiledNames(excludeColumnFiledNames).sheet("模板").doWrite(dataList);//数据列表
         //EasyExcel.write(fileName, DemoData.class).includeColumnFiledNames(includeColumnFiledNames).sheet("模板").doWrite(dataList);//数据列表
 
+        //方式2：使用ExcelWriter的write方法(注意：使用这种方式必须手动关闭流)
+        ExcelWriter excelWriter = EasyExcel.write(fileName, DemoData.class).build();
+        WriteSheet writeSheet = EasyExcel.writerSheet(0,"模板").build();
+        //WriteSheet writeSheet = EasyExcel.writerSheet(0,"模板").excludeColumnFiledNames(excludeColumnFiledNames).build();
+        //WriteSheet writeSheet = EasyExcel.writerSheet(0,"模板").includeColumnFiledNames(includeColumnFiledNames).build();
+        excelWriter.write(dataList, writeSheet);
+        excelWriter.finish();
+
+
+    }
+
+    /**
+     * 多个sheet的写
+     */
+    @Test
+    public void MultipleSheetWrite() {
+
+        //1.文件输出路径
+        String fileName = "E:\\测试表" + System.currentTimeMillis() + ".xlsx";
+
+        //2.数据列表
+        List<DemoData> dataListSheet1 = new ArrayList<DemoData>();
+        List<DemoData> dataListSheet2 = new ArrayList<DemoData>();
+        for (int i = 0; i < 10; i++) {
+            //设置行数据(参考数据库，一行数据记录对应一个Java实体对象)
+            //循环多少次，就表示向List集合中添加多少个对象，即向excel表中插入多少行数据
+            //如果某个对象属性没有设置值或者值为null，则在excel中填充空白单元格
+            DemoData data = new DemoData();
+            data.setString("字符串" + i);
+            data.setDate(new Date());
+            data.setDoubleData(0.56);
+            dataListSheet1.add(data);
+            dataListSheet2.add(data);
+        }
+
+
+        //4.写数据
+        ExcelWriter excelWriter = EasyExcel.write(fileName, DemoData.class).build();
+        WriteSheet writeSheet1 = EasyExcel.writerSheet(0,"模板1").build();
+        WriteSheet writeSheet2 = EasyExcel.writerSheet(1,"模板2").build();
+        excelWriter.write(dataListSheet1, writeSheet1).write(dataListSheet2, writeSheet2);
+        excelWriter.finish();
     }
 
 }
