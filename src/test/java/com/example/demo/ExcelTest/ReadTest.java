@@ -7,8 +7,6 @@ import com.example.demo.Excel.DemoData;
 import com.example.demo.Excel.DemoDataListener;
 import com.example.demo.common.mapper.ExcelMapper;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -21,8 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class ReadTest {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ReadTest.class);
 
     private static final String fileName = System.getProperty("user.dir") + "/src/main/resources/" + "ReadDemoExcel" + ".xlsx";
 
@@ -53,6 +49,7 @@ public class ReadTest {
     @Test
     public void multipleSheetRead() {
         ExcelReader excelReader = EasyExcel.read(fileName).build();
+        //TODO 有个很重要的点 DemoDataListener 不能被spring管理，要每次读取excel都要new,然后里面用到spring可以构造方法传进去
         ReadSheet readSheet1 = EasyExcel.readSheet(0, "模板1").head(DemoData.class).registerReadListener(new DemoDataListener(this.excelMapper)).build();
         ReadSheet readSheet2 = EasyExcel.readSheet(1, "模板2").head(DemoData.class).registerReadListener(new DemoDataListener(this.excelMapper)).build();
         excelReader.read(readSheet1, readSheet2);//该方法有多种简单的重载形式，可以选择使用
