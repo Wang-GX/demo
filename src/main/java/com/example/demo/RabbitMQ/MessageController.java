@@ -47,6 +47,7 @@ public class MessageController {
 
 
     public static void main(String[] args) {
+        //取时间段的并集
         List<String> startList = new ArrayList<>();
         List<String> endList = new ArrayList<>();
 
