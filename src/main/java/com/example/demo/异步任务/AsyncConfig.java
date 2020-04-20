@@ -9,7 +9,7 @@ import java.util.concurrent.*;
 
 /**
  * Spring会优先从该类定义的线程池中获取空闲线程去执行@Async注解的异步任务
- * 异步任务必须提供可用的线程池，SpringBoot默认引入ThreadPoolTaskScheduler
+ * TODO 异步任务必须提供可用的线程池，SpringBoot默认引入ThreadPoolTaskScheduler(该线程池用于SpringSchedule定时任务)
  */
 @Configuration
 @EnableAsync
