@@ -32,7 +32,15 @@ public class LocalLockService {
          *  TimeUnit unit,　　　　　　　　　　　　　    //keepAliveTime时间单位
          *  BlockingQueue<Runnable> workQueue,    //缓存队列，用来存放等待被执行的任务
          *  ThreadFactory threadFactory,　　　　  //执行程序创建新线程时使用的工厂
-         *  RejectedExecutionHandler handler   //线程池中的创建的线程数量已经达到最大并且缓存队列已满时
+         *  RejectedExecutionHandler handler   //线程池中的创建的线程数量已经达到最大并且缓存队列已满时新任务的处理策略
+         *      (1)ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常。
+         *      (2)ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常。
+         *      (3)ThreadPoolExecutor.DiscardOldestPolicy：丢弃缓存队列中最前面(最早添加)的任务，然后重新尝试执行任务(重复此过程)。
+         *      (4)ThreadPoolExecutor.CallerRunsPolicy：由调用线程，而不是线程池中的线程处理该任务。
+         *         https://www.jianshu.com/p/aa420c7df275
+         *         https://blog.csdn.net/matrix_google/article/details/53440113
+         *         注意：如果使用这种策略，那么在任务全部处理完毕之前，调用线程将会一直阻塞(因为在全部处理完毕之前，无法确定是否需要使用到调用线程)。如果是请求线程，将会一直得不到响应。
+         *
          */
 
         /**
@@ -52,16 +60,14 @@ public class LocalLockService {
                 TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<Runnable>(5),//缓存队列的最大容量
                 namedThreadFactory,
-                new ThreadPoolExecutor.AbortPolicy()
+                new ThreadPoolExecutor.CallerRunsPolicy()
         );
 
-        //创建线程任务
-        Work work = new Work();
-        //线程执行线程任务
 
         for(int i = 0; i < 16; i++) {
             //手动将任务执行时间延长4s演示效果
             Work task = new Work();
+            //从线程池中获取线程执行任务
             singleThreadPool.execute(task);
             System.out.println(
                     "线程池中线程数目：" + singleThreadPool.getPoolSize() +
@@ -86,8 +92,7 @@ class Work implements Runnable {
             synchronized (Lock.getLock()) {
                 if (this.ticket > 0) {
                     try {
-                        Thread.sleep(4000);//sleep方法不释放锁
-
+                        Thread.sleep(4000L);//sleep方法不释放锁
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

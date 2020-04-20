@@ -91,7 +91,7 @@ commit;	事务提交时，同时释放insert、update、delete对应的锁
 事务中的加锁方式
 
 事务的四种隔离级别
-在数据库操作中，为了有效保证并发读取数据的正确性，提出的事务隔离级别。我们的数据库锁，也是为了构建这些隔离级别存在的。
+在数据库操作中，为了有效保证并发读取数据的正确性，提出的事务隔离级别。【我们的数据库锁，也是为了构建这些隔离级别存在的】。
 
 隔离级别	                    脏读（Dirty Read）	不可重复读（NonRepeatable Read）	幻读（Phantom Read）
 未提交读（Read uncommitted）	可能	            可能	                            可能
@@ -256,3 +256,16 @@ MVCC+next-key locks：next-key locks由record locks(索引加锁) 和 gap locks(
 读写操作都会对数据加锁，可能会导致大量的请求超时现象发生
 读与读不冲突，因为都加S锁
 读与写必然冲突，因为S锁和X锁冲突
+
+
+
+MYSQL 事务处理主要有两种方法：
+1、用 BEGIN, ROLLBACK, COMMIT来实现
+
+BEGIN 开始一个事务
+ROLLBACK 事务回滚
+COMMIT 事务确认
+2、直接用 SET 来改变 MySQL 的自动提交模式:
+
+SET AUTOCOMMIT=0 禁止自动提交
+SET AUTOCOMMIT=1 开启自动提交

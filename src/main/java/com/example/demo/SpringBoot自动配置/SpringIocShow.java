@@ -36,11 +36,11 @@ public class SpringIocShow implements ApplicationContextAware {
 
         logger.info("----------------------------------- SPRING IOC SHOW START-----------------------------------");
 
-        /*System.out.println("------Bean 总计:" + applicationContext.getBeanDefinitionCount());
-        String[] names = applicationContext.getBeanDefinitionNames();
-        for (String name : names) {
-            System.out.println(">>>>>>" + name);
-        }*/
+//        System.out.println("------Bean 总计:" + applicationContext.getBeanDefinitionCount());
+//        String[] names = applicationContext.getBeanDefinitionNames();
+//        for (String name : names) {
+//            System.out.println(">>>>>>" + name);
+//        }
 
         logger.info("------------------------------------ SPRING IOC SHOW END ------------------------------------");
 

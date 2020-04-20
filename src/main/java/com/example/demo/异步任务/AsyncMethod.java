@@ -3,6 +3,10 @@ package com.example.demo.异步任务;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+/**
+ * 异步任务需要单独定义一个类，并且被Spring扫描到
+ * TODO 使用@Async注解出现的循环依赖问题
+ */
 @Component
 public class AsyncMethod {
 
